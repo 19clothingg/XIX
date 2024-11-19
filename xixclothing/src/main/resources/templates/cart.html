@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>XIX Clothingg</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!--
+
+19Clothing
+
+-->
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+
+  </head>
+
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><h2>XIX <em>Clothing</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index">TRANG CHỦ
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="products">SẢN PHẨM</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact">LIÊN HỆ</a>
+              </li>
+              <li class="nav-item active">
+                <a style="color: #F33F3FFF" class="nav-link" href="cart"><i style="font-size: 110% " class="fa fa-shopping-cart"></i> | GIỎ HÀNG</a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div class="card">
+      <div class="row">
+        <div class="col-md-8 cart">
+          <div class="title">
+            <div class="row">
+              <div class="col"><h4><b>Giỏ Hàng</b></h4></div>
+              <div class="col align-self-center text-right text-muted">1 sản phẩm</div>
+            </div>
+          </div>
+
+<!--          sp-->
+
+          <div class="row border-top border-bottom" id="cart-items">
+            <div class="row main align-items-center">
+              <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg"></div>
+              <div class="col">
+                <div class="row text-muted">Shirt</div>
+                <div class="row">Cotton T-shirt</div>
+              </div>
+              <div class="col">
+                <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
+              </div>
+              <div class="col">&#8363; <span class="close">&#10005;</span></div>
+            </div>
+          </div>
+
+
+              <div class="back-to-shop">
+                  <a href="products" class="text-muted" >&leftarrow; &#160; Back to shop</a>
+              </div>
+
+
+
+        </div>
+        <div class="col-md-4 summary">
+          <div><h5><b>Thanh toán</b></h5></div>
+          <div class="row">
+            <div class="col" style="padding-left:0;"></div>
+            <div class="col text-right"></div>
+          </div>
+          <form>
+            <p>ĐƠN VỊ VẬN CHUYỂN</p>
+            <select><option class="text-muted">Miễn phí vận chuyển</option></select>
+            <p>GIVE CODE</p>
+            <input id="code" placeholder="Mã giảm giá (nếu có)">
+          </form>
+          <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+            <div class="col">TỔNG THANH TOÁN</div>
+            <div class="col text-right" id="total-amount">&#8363; 132.00</div>
+          </div>
+          <button class="btn">THANH TOÁN</button>
+        </div>
+      </div>
+    </div>
+
+
+<!--        <footer>-->
+<!--            <div class="container">-->
+<!--              <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                  <div class="inner-content">-->
+<!--                    <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.-->
+
+<!--                  - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--        </footer>-->
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Additional Scripts -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/isotope.js"></script>
+    <script src="assets/js/accordions.js"></script>
+
+
+    <script language = "text/Javascript">
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+    <script>
+      // Hiển thị giỏ hàng
+      function displayCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = ''; // Xóa nội dung trước đó
+
+        let totalQuantity = 0; // Biến để lưu tổng số lượng sản phẩm
+
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = '<div class="row main align-items-center"><div class="col"><h5>Giỏ hàng của bạn đang trống.</h5></div></div>';
+          document.querySelector('.text-muted').innerText = '0 sản phẩm'; // Cập nhật số lượng sản phẩm
+          return;
+        }
+
+        cart.forEach(item => {
+          totalQuantity += item.quantity; // Cộng dồn số lượng sản phẩm
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('row', 'main', 'align-items-center');
+          itemDiv.setAttribute ('data-id', item.id); // Thêm thuộc tính data-id
+          itemDiv.innerHTML = `
+            <div class="col-2"><img class="img-fluid" src="${item.image}" alt="${item.name}"></div> <!-- Hiển thị hình ảnh -->
+            <div class="col">
+                <div class="row text-muted">${item.name}</div>
+                <div class="row">${item.description || ''}</div>
+            </div>
+            <div class="col">
+                <a href="#" onclick="changeQuantity('${item.id}', -1)">-</a>
+                <a href="#" class="border">${item.quantity}</a>
+                <a href="#" onclick="changeQuantity('${item.id}', 1)">+</a>
+            </div>
+            <div class="col">&#8363; ${item.price * item.quantity} <span class="close" onclick="removeFromCart('${item.id}')">&#10005;</span></div>
+        `;
+          cartItemsContainer.appendChild(itemDiv); // Thêm sản phẩm vào container
+        });
+
+        // Cập nhật số lượng sản phẩm trong giỏ
+        document.querySelector('.align-self-center.text-muted').innerText = `${totalQuantity} sản phẩm`;
+      }
+
+
+
+      function changeQuantity(id, delta) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const itemIndex = cart.findIndex(item => item.id === id);
+
+        if (itemIndex !== -1) {
+          cart[itemIndex].quantity += delta;
+          if (cart[itemIndex].quantity <= 0) {
+            cart.splice(itemIndex, 1); // Xóa sản phẩm nếu số lượng <= 0
+          }
+          localStorage.setItem('cart', JSON.stringify(cart));
+          displayCart(); // Cập nhật giỏ hàng
+          updateTotal();
+        }
+      }
+
+
+
+      function removeFromCart(id) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const itemIndex = cart.findIndex(item => item.id === id); // Tìm chỉ số sản phẩm trong giỏ hàng
+        if (itemIndex !== -1) {
+          cart.splice(itemIndex, 1); // Xóa sản phẩm khỏi giỏ hàng
+          localStorage.setItem('cart', JSON.stringify(cart)); // Cập nhật giỏ hàng trong Local Storage
+          displayCart(); // Cập nhật giỏ hàng
+          updateTotal(); // Cập nhật tổng thanh toán
+        }
+      }
+
+
+
+      // Tổng thanh toán
+      function updateTotal() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        document.getElementById('total-amount').innerHTML = `&#8363; ${total.toFixed(2)}`; // Cập nhật tổng tiền
+      }
+      // Gọi hàm updateTotal sau khi hiển thị giỏ hàng
+      displayCart();
+      updateTotal();
+    </script>
+
+
+
+
+
+  </body>
+
+</html>
