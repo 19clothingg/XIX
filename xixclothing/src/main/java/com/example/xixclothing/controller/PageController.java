@@ -21,7 +21,7 @@ public class PageController {
 
     @GetMapping({"/products", "/products.html"})
     public String showProductsPage(Model model) {
-//        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.getAllProducts());
         return "products";
     }
 

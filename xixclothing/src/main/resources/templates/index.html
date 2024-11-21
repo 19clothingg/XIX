@@ -34,7 +34,7 @@
        style="
        position: fixed;
        z-index: 9;
-       background-color: rgba(58,58,58,0.08);
+       background-color: #e4e3e3;
        border-left: 5px solid #4CAF50;
        padding: 5px 20px 5px 20px;
        border-radius: 5px;
@@ -149,12 +149,12 @@
           <div style="box-shadow: 1px 1px 14px 1px #888888;" class="product-item">
 
             <!-- Hiển thị ảnh sản phẩm từ product.imageUrl -->
-            <div><a href="#"><img class="img-url" th:src="${product.imageUrl}" alt="Product Image"></a></div>
+            <div ><a href="#"><img class="img-url" th:src="${product.imageUrl}" alt="Product Image"></a></div>
 
               <div class="down-content">
                 <!-- Tên sản phẩm -->
-                <a href="#">
-                  <h4 th:text="${product.name}">Product Name</h4>
+                <a  href="#">
+                  <h4 class="one-line-paragraph" th:text="${product.name}">Product Name</h4>
                 </a>
 
                 <!-- Giá sản phẩm -->
@@ -186,6 +186,18 @@
 
 
           <style>
+            .one-line-paragraph {
+              display: block; /* Fallback trong trường hợp trình duyệt không hỗ trợ display dạng box */
+              display: -webkit-box;
+              line-height: 20px; /* Fallback  */
+              max-height: 74px; /* Fallback số dòng bạn muốn giới hạn */
+              -webkit-line-clamp: 1; /* Số dòng bạn muốn giới hạn */
+              -webkit-box-orient: vertical;
+              visibility: visible;
+              text-overflow: ellipsis;
+              overflow:hidden;
+              max-width: 180px;
+            }
             /* CSS cho nút Thêm vào giỏ hàng */
             .add-to-cart-btn {
               display: inline-block;
@@ -377,7 +389,6 @@
         $('#toast').toast('show');
       }
     </script>
-    </div>
 
   </body>
 

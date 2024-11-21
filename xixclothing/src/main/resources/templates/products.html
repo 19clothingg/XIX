@@ -13,20 +13,87 @@
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!--
 
-  19Clothing
-
-  -->
 
   <!-- Additional CSS Files -->
   <link rel="stylesheet" href="assets/css/fontawesome.css">
   <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
   <link rel="stylesheet" href="assets/css/owl.css">
 
+
+  <style>
+    .neonText {
+      animation: flicker 1.5s infinite alternate;
+      color: #fff;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      18%,
+      22%,
+      25%,
+      53%,
+      57%,
+      100% {
+
+        text-shadow:
+                0 0 4px #fff,
+                0 0 11px #fff,
+                0 0 19px #fff,
+                0 0 40px #fff,
+                0 0 80px #fff,
+                0 0 90px #fff,
+                0 0 100px #fff,
+                0 0 150px #fff;
+
+      }
+
+      20%,
+      24%,
+      55% {
+        text-shadow: none;
+      }
+    }
+
+    /*neon text*/
+  </style>
+
 </head>
 
 <body>
+<!--toast thông báo-->
+<div class="toast" id="toast"
+
+     style="
+       position: fixed;
+       z-index: 9;
+       background-color: #e4e3e3;
+       border-left: 5px solid #4CAF50;
+       padding: 5px 20px 5px 20px;
+       border-radius: 5px;
+       top: 20%;
+       right: 20px;
+       display: none;"
+     role="alert"
+     aria-live="assertive"
+     aria-atomic="true">
+
+
+  <div class="toast-header">
+    <strong class="mr-auto">Thành công!</strong>
+    <button style="
+
+      align-items: center; text-align: center; color: red"
+
+            type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Sản phẩm đã được thêm vào giỏ hàng!
+  </div>
+</div>
 
 <!-- ***** Preloader Start ***** -->
 <div id="preloader">
@@ -42,25 +109,26 @@
 <header class="">
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand" href="index.html"><h2>Sixteen <em>Clothing</em></h2></a>
+      <a class="navbar-brand" href="index.html"><h2>XIX <em>Clothing</em></h2></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Trang chủ
+            <a class="nav-link" href="index.html">TRANG CHỦ
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="products.html">Sản Phẩm</a>
+            <a class="nav-link" href="products.html">SẢN PHẨM</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">LIÊN HỆ</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">Giới Thiệu</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Liên Hệ</a>
+            <a style="color: #F33F3FFF" class="nav-link" href="cart"><i style="font-size: 110% " class="fa fa-shopping-cart"></i> | GIỎ HÀNG</a>
           </li>
         </ul>
       </div>
@@ -74,8 +142,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="text-content">
-          <h4>new arrivals</h4>
-          <h2>sixteen products</h2>
+          <h4>XIX CLOTHING</h4>
+          <h2 class="neonText">40% sale off</h2>
         </div>
       </div>
     </div>
@@ -96,145 +164,108 @@
           </ul>
         </div>
       </div>
-      <div class="col-md-12">
-        <div class="filters-content">
-          <div class="row grid">
-            <div class="col-lg-4 col-md-4 all des">
-              <div class="product-item">
-                <a href="#"><img src="assets/images/b1.png" alt=""></a>
-                <div class="down-content">
-                  <a href="#"><h4>Áo Thun Polo N7 </h4></a>
-                  <h6>299.000</h6>
-                  <p>
-                    – Hàng chuẩn N7 sản xuất, tem mác chuẩn chính hãng.
-                    Chất liệu: Da lộn 280G.
-                    Chất liệu cao cấp.Vải mềm, vải mịn, thoáng mát.
-                  </p>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>Reviews (12)</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 all dev">
-              <div class="product-item">
-                <a href="#"><img src="assets/images/b2.png" alt=""></a>
-                <div class="down-content">
-                  <a href="#"><h4>Polo Striped PL</h4></a>
-                  <h6>279.000</h6>
-                  <p>Chi tiết sản phẩm
-                    Polo Striped PL.137
-                    Hàng chuẩn NEWSEVEN sản xuất, tem mác chuẩn chính hãng.
-                    Chất liệu: Value Cotton
-                  </p>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>Reviews (24)</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 all gra">
-              <div class="product-item">
-                <a href="#"><img src="assets/images/b3.png" alt=""></a>
-                <div class="down-content">
-                  <a href="#"><h4>Quần Short NEWSEVEN </h4></a>
-                  <h6>289.000</h6>
-                  <p>Thông tin sản phẩm Quần Short NEWSEVEN Seam QS.151:
-                    – Hàng chuẩn N7 sản xuất, tem mác chuẩn chính hãng.
-                    – Chất liệu: Kaki
+      <!--&#45;&#45;&#45;&#45;&#45;&#45;-->
+      <div class="col-md-3 " th:each="product : ${products}">
+        <div style="box-shadow: 1px 1px 14px 1px #888888;" class="product-item">
 
-                  </p>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>Reviews (36)</span>
-                </div>
-              </div>
+          <!-- Hiển thị ảnh sản phẩm từ product.imageUrl -->
+          <div><a href="#"><img class="img-url" th:src="${product.imageUrl}" alt="Product Image"></a></div>
+
+          <div class="down-content">
+            <!-- Tên sản phẩm -->
+            <a href="#">
+              <h4 class="one-line-paragraph" th:text="${product.name}">Product Name</h4>
+            </a>
+
+            <!-- Giá sản phẩm -->
+            <h6 th:text="${product.price}">Product Price</h6>
+
+            <!-- Mô tả sản phẩm -->
+            <!--<p th:text="${product.description}">Product Description</p>-->
+
+            <div style="display: flex;justify-content: space-between;">
+              <h4>Đánh Giá: </h4>
+
+              <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+              </ul>
             </div>
-            <div class="col-lg-4 col-md-4 all gra">
-              <div class="product-item">
-                <a href="#"><img src="assets/images/b4.png" alt=""></a>
-                <div class="down-content">
-                  <a href="#"><h4>Quần Short Nailed QS</h4></a>
-                  <h6>255.000</h6>
-                  <p>– Chất liệu: Kaki Cotton.
-                    -Kiểu dáng: Form rộng
-                    -Thiết kế: Đính logo kim loại.
-                  </p>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>Reviews (48)</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 all dev">
-              <div class="product-item">
-                <a href="#"><img src="assets/images/b5.png" alt=""></a>
-                <div class="down-content">
-                  <a href="#"><h4>Quần Short Kaki </h4></a>
-                  <h6>199.000</h6>
-                  <p>– Chất liệu: Kaki Cotton.
-                    -Kiểu dáng: Form rộng
-                    -Thiết kế: Túi hộp
-                  </p>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>Reviews (60)</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-4 all des">
-              <div class="product-item">
-                <a href="#"><img src="assets/images/b6.png" alt=""></a>
-                <div class="down-content">
-                  <a href="#"><h4>Quần Jean Ống Rộng </h4></a>
-                  <h6>429.000</h6>
-                  <p>Thông tin sản phẩm Quần Jean Ống Rộng NEWSEVEN Carpenter Pant QD.141:
-                    – Hàng chuẩn N7 sản xuất, tem mác chuẩn chính hãng.
-                    – Chất liệu: Jean.
-                  </p>
-                  <ul class="stars">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <span>Reviews (72)</span>
-                </div>
-              </div>
+            <!--Nút thêm vào giỏ hàng-->
+            <div style="text-align: center;">
+              <button class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
+                Thêm vào giỏ hàng <i class="fa fa-shopping-cart"></i>
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <style>
+        .one-line-paragraph {
+          display: block; /* Fallback trong trường hợp trình duyệt không hỗ trợ display dạng box */
+          display: -webkit-box;
+          line-height: 20px; /* Fallback  */
+          max-height: 74px; /* Fallback số dòng bạn muốn giới hạn */
+          -webkit-line-clamp: 1; /* Số dòng bạn muốn giới hạn */
+          -webkit-box-orient: vertical;
+          visibility: visible;
+          text-overflow: ellipsis;
+          overflow:hidden;
+          max-width: 130px;
+        }
+        /* CSS cho nút Thêm vào giỏ hàng */
+        .add-to-cart-btn {
+          display: inline-block;
+          background-color: #f33f3f;
+          color: white;
+          padding: 10px 20px;
+          margin-top: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 14px;
+          text-transform: uppercase;
+          transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+          background-color: #ee8080;
+        }
+
+        .img-url img {
+          transition: transform .5s, filter 1.5s ease-in-out;
+          filter: grayscale(100%);
+
+        }
+
+        .img-url:hover {
+          filter: brightness(80%);
+          transition: transform .5s, filter .5s ease-in-out;
+        }
+
+        .neonText {
+          color: #fff;
+          text-shadow:
+                  0 0 7px #fff,
+                  0 0 10px #fff,
+                  0 0 21px #fff,
+                  0 0 33px #000,
+                  0 0 55px #000,
+                  0 0 66px #000,
+                  0 0 80px #000,
+                  0 0 100px #000;
+        }
+      </style>
+    </div>
+
+
       <div class="col-md-12">
         <ul class="pages">
-          <li><a href="#">1</a></li>
-          <li class="active"><a href="#">2</a></li>
+          <li class="active"><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
           <li><a href="#">3</a></li>
           <li><a href="#">4</a></li>
           <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
@@ -281,6 +312,49 @@
       t.value='';         // with more chance of typos
       t.style.color='#fff';
     }
+  }
+</script>
+
+<script>
+  function addToCart(button) {
+    const productId = button.getAttribute('data-id'); // Lấy ID sản phẩm từ thuộc tính data-id
+    const productName = button.closest('.down-content').querySelector('h4').innerText; // Lấy tên sản phẩm
+    const productPrice = button.closest('.down-content').querySelector('h6').innerText; // Lấy giá sản phẩm
+    const productImage = button.closest('.down-content').previousElementSibling.querySelector('img').getAttribute('src'); // Lấy đường dẫn hình ảnh
+
+    // Tạo đối tượng
+    const product = {
+      id: productId,
+      name: productName,
+      price: productPrice,
+      quantity: 1,
+      image: productImage
+    };
+
+    // Lấy giỏ hàng từ Local Storage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+    const existingProductIndex = cart.findIndex(item => item.id === productId);
+    if (existingProductIndex !== -1) {
+      // Nếu sản phẩm đã có, tăng số lượng
+      cart[existingProductIndex].quantity += 1;
+    } else {
+      // Nếu sản phẩm chưa có, thêm sản phẩm vào giỏ hàng
+      cart.push(product);
+    }
+
+    // Lưu giỏ hàng vào Local Storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // nội dung toast
+    const toastBody = document.querySelector('#toast .toast-body');
+    const toastImage = document.querySelector('#toast-image');
+    toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
+
+    // Thông báo
+    $('#toast').css('display', 'block').toast({ delay: 3000 });
+    $('#toast').toast('show');
   }
 </script>
 

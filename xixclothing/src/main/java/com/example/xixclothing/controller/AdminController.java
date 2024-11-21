@@ -31,14 +31,14 @@ public class AdminController {
         return "redirect:/admin/add-product";
     }
 
-    // Xóa sản phẩm (AJAX hoặc bằng nút delete)
+    // Xóa sản phẩm
     @GetMapping("/delete-product/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id); // Xóa sản phẩm dựa trên ID
         return "redirect:/admin/add-product"; // Trả về phản hồi cho AJAX
     }
 
-    // Chỉnh sửa sản phẩm bằng AJAX
+    // Chỉnh sửa sản phẩm
     @PostMapping("/update-product")
     @ResponseBody
     public String updateProduct(@RequestBody Product updatedProduct) {
