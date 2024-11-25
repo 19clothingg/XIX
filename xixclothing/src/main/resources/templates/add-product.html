@@ -119,7 +119,7 @@
 </head>
 <body>
 
-<!-- Form thêm sản phẩm ngang -->
+<!-- Form thêm sản phẩm -->
 <form class="add-product-form" action="#" th:action="@{/admin/add-product}" th:object="${product}" method="post">
     <h1 style="width: 100%; text-align: center;">Thêm sản phẩm mới</h1>
 
@@ -193,7 +193,7 @@
             };
 
             // Gửi dữ liệu qua API bằng fetch (AJAX)
-            fetch('/admin/update-product', {
+            fetch('/admin/add-product', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

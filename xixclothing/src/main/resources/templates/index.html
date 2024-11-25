@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="/assets/css/fontawesome.css">
   <link rel="stylesheet" href="/assets/css/templatemo-sixteen.css">
   <link rel="stylesheet" href="/assets/css/owl.css">
+  <link rel="stylesheet" href="/assets/css/btn.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 
   <script src="/vendor/jquery/jquery.min.js"></script>
@@ -38,7 +40,7 @@
        border-left: 5px solid #4CAF50;
        padding: 5px 20px 5px 20px;
        border-radius: 5px;
-       top: 20%;
+       top: 10%;
        right: 20px;
        display: none;"
        role="alert"
@@ -175,15 +177,29 @@
                   </ul>
                 </div>
                 <!--Nút thêm vào giỏ hàng-->
-                <div style="text-align: center;">
+                <div >
+
                   <button class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
-                    Thêm vào giỏ hàng <i class="fa fa-shopping-cart"></i>
+
+
+                    <span style="left: 42%" class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>
+                    <span class="added"> <i class="fa-solid fa-circle-check"></i> ĐÃ THÊM </span>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fas fa-box"></i>
                   </button>
+
+<!--                  <button class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">-->
+<!--                    <span  class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>-->
+<!--                    <span class="added"> <i class="fa-solid fa-circle-check"></i> ĐÃ THÊM </span>-->
+<!--                    <i class="fa-solid fa-cart-shopping"></i>-->
+<!--                    <i class="fas fa-box"></i>-->
+<!--                  </button>-->
+
+
                 </div>
               </div>
             </div>
           </div>
-
 
           <style>
             .one-line-paragraph {
@@ -199,23 +215,23 @@
               max-width: 180px;
             }
             /* CSS cho nút Thêm vào giỏ hàng */
-            .add-to-cart-btn {
-              display: inline-block;
-              background-color: #f33f3f;
-              color: white;
-              padding: 10px 20px;
-              margin-top: 10px;
-              border: none;
-              border-radius: 4px;
-              cursor: pointer;
-              font-size: 14px;
-              text-transform: uppercase;
-              transition: background-color 0.3s ease;
-            }
+            /*.add-to-cart-btn {*/
+            /*  display: inline-block;*/
+            /*  background-color: #f33f3f;*/
+            /*  color: white;*/
+            /*  padding: 10px 20px;*/
+            /*  margin-top: 10px;*/
+            /*  border: none;*/
+            /*  border-radius: 4px;*/
+            /*  cursor: pointer;*/
+            /*  font-size: 14px;*/
+            /*  text-transform: uppercase;*/
+            /*  transition: background-color 0.3s ease;*/
+            /*}*/
 
-            .add-to-cart-btn:hover {
-              background-color: #ee8080;
-            }
+            /*.add-to-cart-btn:hover {*/
+            /*  background-color: #ee8080;*/
+            /*}*/
 
             .img-url img {
               transition: transform .5s, filter 1.5s ease-in-out;
@@ -250,22 +266,22 @@
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>About Sixteen Clothing</h2>
+              <h2>About XIX Clothing</h2>
             </div>
           </div>
           <div class="col-md-6">
             <div class="left-content">
               <h4>Thông tin liên hệ</h4>
-              <p><a rel="nofollow" href="https://templatemo.com/tm-546-sixteen-clothing" target="_parent">This
+              <p><a rel="nofollow" href="#" target="_parent">This
                   template</a> is free to use for your business websites. However, you have no permission to
                 redistribute the downloadable ZIP file on any template collection website. <a rel="nofollow"
-                  href="https://templatemo.com/contact">Contact us</a> for more info.</p>
+                  href="contact.html">Contact us</a> for more info.</p>
               <ul class="featured-list">
                 <li><a href="#">Cơ sở 1: Số 159 Đông Các, Đống Đa, Hà Nội</a></li>
                 <li><a href="#">Cơ sở 2: Số 75 Chùa Bộc, Đống Đa, Hà Nội</a></li>
 
               </ul>
-              <a href="cart.html" class="filled-button">Read More</a>
+              <a href="contact.html" class="filled-button">Read More</a>
             </div>
           </div>
           <div class="col-md-6">
@@ -285,14 +301,14 @@
             <div class="inner-content">
               <div class="row">
                 <div class="col-md-8">
-                  <h4>Creative &amp; Unique <em>Sixteen</em> Products</h4>
+                  <h4>Creative &amp; Unique <em>XIX</em> Products</h4>
                   <p>Giới thiệu
 
                     XIX hướng đến sứ mệnh trở thành một local brand với các sản phẩm chất lượng tốt và giá thành "dễ
                     chịu" với mọi người.</p>
                 </div>
                 <div class="col-md-4">
-                  <a href="#" class="filled-button">Purchase Now</a>
+                  <a href="products.html" class="filled-button">Purchase Now</a>
                 </div>
               </div>
             </div>
@@ -309,7 +325,8 @@
             <div class="inner-content">
               <p>Copyright &copy; 2024 XIX Clothing Co., Ltd.
 
-                - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+<!--                - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a>-->
+              </p>
             </div>
           </div>
         </div>
@@ -335,6 +352,7 @@
     <script src="/assets/js/slick.js"></script>
     <script src="/assets/js/isotope.js"></script>
     <script src="/assets/js/accordions.js"></script>
+    <script src="/assets/js/btn.js"></script>
 
     <script language="text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0;
@@ -346,6 +364,8 @@
         }
       }
     </script>
+
+
 
     <script>
       function addToCart(button) {

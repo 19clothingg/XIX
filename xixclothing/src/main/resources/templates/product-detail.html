@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .product-detail {
+            margin-top: 50px;
+        }
+        .product-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .add-to-cart-btn {
+            background-color: #f33f3f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #ee8080;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container product-detail">
+    <h1 id="product-name" class="text-center"></h1>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <img id="product-image" class="product-image" src="" alt="Product Image" />
+        </div>
+        <div class="col-md-6">
+            <h3 id="product-price" class="text-danger"></h3>
+            <p id="product-description"></p>
+            <button class="add-to-cart-btn" id="add-to-cart-btn" onclick="addToCart()">Thêm vào giỏ hàng <i class="fa fa-shopping-cart"></i></button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Lấy thông tin sản phẩm từ URL
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
+
+    // Giả sử bạn có một mảng sản phẩm (thay thế bằng dữ liệu thực tế của bạn)
+    const products = [
+        { id: '1', name: 'Sản phẩm 1', imageUrl: 'image1.jpg', price: '100.000đ', description: 'Mô tả sản phẩm 1' },
+        { id: '2', name: 'Sản phẩm 2', imageUrl: 'image2.jpg', price: '200.000đ', description: 'Mô tả sản phẩm 2' },
+        // Thêm các sản phẩm khác ở đây
+    ];
+
+    // Tìm sản phẩm theo ID
+    const product = products.find(p => p.id === productId);
+    if (product) {
+        document.getElementById('product-name').innerText = product.name;
+        document.getElementById('product-image').src = product.imageUrl;
+        document.getElementById('product-price').innerText = product.price;
+        document.getElementById('product-description').innerText = product.description;
+    } else {
+        document.getElementById('product-name').innerText = 'Sản phẩm không tồn tại';
+    }
+
+    function addToCart() {
+        // Thêm logic để thêm sản phẩm vào giỏ hàng
+        alert(`${product.name} đã được thêm vào giỏ hàng!`);
+    }
+</script>
+
+</body>
+</html>
