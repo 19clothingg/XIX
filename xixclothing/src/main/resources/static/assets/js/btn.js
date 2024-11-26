@@ -10,5 +10,5 @@ button.classList.add('clicked');
 
 setTimeout(() => {
         button.classList.remove('clicked');
-    }, 4000);
+    }, 3000);
 }

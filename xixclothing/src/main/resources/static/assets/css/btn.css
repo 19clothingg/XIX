@@ -15,7 +15,6 @@
     position: relative;
     overflow: hidden;
     /*font-weight: 700;*/
-
 }
 
 .add-to-cart-btn:hover {
@@ -43,15 +42,25 @@
 }
 
 .add-to-cart-btn span {
-    text-align: center;
-    margin: auto;
+    display: flex; /* Sử dụng flexbox */
+    justify-content: center; /* Căn giữa ngang */
+    align-items: center; /* Căn giữa dọc */
+    text-align: center; /* Căn giữa chữ */
     position: absolute;
     z-index: 3;
-    left: 40%;
-    top: 40%;
-    font-size: 1.3em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em; /* Điều chỉnh kích cỡ chữ */
     color: #FFFFFF;
-    transform: translate(-40%, -60%);
+    /*font-weight: bold;*/
+    line-height: normal; /* Đảm bảo khoảng cách dòng */
+    flex-wrap: wrap; /* Tự động xuống dòng khi cần */
+    word-break: break-word; /* Chia chữ nếu cần thiết */
+    height: 100%; /* Đảm bảo chiều cao tràn hết khối */
+    width: 100%; /* Đảm bảo chiều rộng khớp với nút */
+    padding: 0; /* Xóa khoảng cách thừa */
+    margin: 0; /* Xóa khoảng cách thừa */
 }
 
 .add-to-cart-btn span .add-to-cart {

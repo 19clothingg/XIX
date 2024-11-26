@@ -22,7 +22,6 @@
   <link rel="stylesheet" href="/assets/css/btn.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -52,7 +51,7 @@
       <strong class="mr-auto">Thành công!</strong>
       <button style="
 
-      align-items: center; text-align: center; color: red"
+      align-items: center; text-align: center; color: #e4e3e3"
 
               type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -62,8 +61,6 @@
       Sản phẩm đã được thêm vào giỏ hàng!
     </div>
   </div>
-
-
 
   <!-- ***** Preloader Start ***** -->
   <div id="preloader">
@@ -179,22 +176,12 @@
                 <!--Nút thêm vào giỏ hàng-->
                 <div >
 
-                  <button class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
-
-
-                    <span style="left: 42%" class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>
-                    <span class="added"> <i class="fa-solid fa-circle-check"></i> ĐÃ THÊM </span>
+                  <button style="margin: auto" class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
+                    <span class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>
+                    <span class="added"> <i class="fa-solid fa-circle-check"></i> &nbsp; ĐÃ THÊM </span>
                     <i class="fa-solid fa-cart-shopping"></i>
                     <i class="fas fa-box"></i>
                   </button>
-
-<!--                  <button class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">-->
-<!--                    <span  class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>-->
-<!--                    <span class="added"> <i class="fa-solid fa-circle-check"></i> ĐÃ THÊM </span>-->
-<!--                    <i class="fa-solid fa-cart-shopping"></i>-->
-<!--                    <i class="fas fa-box"></i>-->
-<!--                  </button>-->
-
 
                 </div>
               </div>
@@ -214,24 +201,6 @@
               overflow:hidden;
               max-width: 180px;
             }
-            /* CSS cho nút Thêm vào giỏ hàng */
-            /*.add-to-cart-btn {*/
-            /*  display: inline-block;*/
-            /*  background-color: #f33f3f;*/
-            /*  color: white;*/
-            /*  padding: 10px 20px;*/
-            /*  margin-top: 10px;*/
-            /*  border: none;*/
-            /*  border-radius: 4px;*/
-            /*  cursor: pointer;*/
-            /*  font-size: 14px;*/
-            /*  text-transform: uppercase;*/
-            /*  transition: background-color 0.3s ease;*/
-            /*}*/
-
-            /*.add-to-cart-btn:hover {*/
-            /*  background-color: #ee8080;*/
-            /*}*/
 
             .img-url img {
               transition: transform .5s, filter 1.5s ease-in-out;
