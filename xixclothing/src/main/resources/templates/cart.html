@@ -24,6 +24,13 @@
     <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/cart.css">
+    <link rel="stylesheet" href="assets/css/order-btn.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   </head>
 
@@ -40,7 +47,7 @@
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
-    <header class="">
+    <header style="top: 0" class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
           <a class="navbar-brand" href="index.html"><h2>XIX <em>Clothing</em></h2></a>
@@ -61,7 +68,22 @@
                 <a class="nav-link" href="contact">LIÊN HỆ</a>
               </li>
               <li class="nav-item active">
-                <a style="color: #F33F3FFF" class="nav-link" href="cart"><i style="font-size: 110% " class="fa fa-shopping-cart"></i> | GIỎ HÀNG</a>
+                <a style="color: #F33F3FFF" class="nav-link" href="cart">
+                  <i style="font-size: 150%" class="fa fa-shopping-cart"></i>
+                    <span id="cart-count"
+                        style="
+                          font-size: 11px;
+                          position: absolute;
+                          color: red;
+                          background: white;
+                          box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.2);
+                          border-radius: 50%;
+                          padding-left: 5px;
+                          padding-right: 5px;
+                          margin-left: -10px;
+                          top: 23px;">0
+                    </span>
+                </a>
               </li>
 
             </ul>
@@ -71,7 +93,7 @@
     </header>
 
     <!-- Page Content -->
-    <div class="card">
+    <div style="top: 70px" class="card">
       <div class="row">
         <div class="col-md-8 cart">
           <div class="title">
@@ -113,7 +135,7 @@
           </div>
           <form>
             <p>ĐƠN VỊ VẬN CHUYỂN</p>
-            <select><option class="text-muted">Miễn phí vận chuyển</option></select>
+            <select><option class="text-muted">XIX (Miễn phí vận chuyển)</option></select>
             <p>GIVE CODE</p>
             <input id="code" placeholder="Mã giảm giá (nếu có)">
           </form>
@@ -121,7 +143,78 @@
             <div class="col">TỔNG THANH TOÁN</div>
             <div class="col text-right" id="total-amount">&#8363; 132.00</div>
           </div>
-          <button class="btn">THANH TOÁN</button>
+          <button class="btn" data-toggle="modal" data-target="#paymentModal" onclick="updateModalTotal()">THANH TOÁN</button>
+        </div>
+      </div>
+    </div>
+
+<!--    check out-->
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+      <div style="top: 10%" class="modal-dialog" role="document">
+        <div style="align-items: center" class="modal-content">
+          <div class="modal-header">
+
+            <h5 class="modal-title" id="paymentModalLabel">
+              <i class="fa-regular fa-credit-card"></i> Thanh toán
+            </h5>
+
+          </div>
+          <div class="modal-body">
+            <form id="paymentForm">
+              <div class="form-group">
+                <label for="name">Họ và tên</label>
+                <input type="text" class="form-control" id="name" required>
+              </div>
+              <div class="form-group">
+                <label for="address">Địa chỉ</label>
+                <input type="text" class="form-control" id="address" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" class="form-control" id="phone" required>
+              </div>
+              <div class="form-group">
+                <label for="payment-method">Phương thức thanh toán</label>
+                <select class="form-control" id="payment-method" required onchange="handlePaymentMethodChange()">
+                  <option value="cod">Thanh toán khi nhận hàng</option>
+                  <option value="bank">Chuyển khoản ngân hàng</option>
+                  <option value="qr">Thanh toán bằng QR Code</option>
+                </select>
+
+                <div class="form-group" id="qr-code-container" style="display: none;">
+<!--                  <label>Mã QR thanh toán</label>-->
+                  <div id="qrcode"></div> <!-- Nơi hiển thị QR Code -->
+                  <img style="width: 100%" id="qr-image"
+                       src='https://qr.sepay.vn/img?acc=1015295551&bank=Vietcombank&amount=0&des=NOI_DUNG' />
+                </div>
+
+              </div>
+              <div class="form-group">
+                <label>Tổng thanh toán</label>
+                <p id="modal-total-amount" style="font-weight: bold;"> 0.00 &#8363;</p>
+              </div>
+            </form>
+          </div>
+          <div style="padding-bottom: 3rem; padding-top: 2rem" class="modal-footer justify-content-center">
+
+            <button class="truck-button" onclick="submitPayment()">
+              <span class="default">ĐẶT HÀNG</span>
+                <span class="success">
+                  Thank you
+                  <svg viewbox="0 0 12 10">
+                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                  </svg>
+              </span>
+              <div class="truck">
+                <div class="wheel"></div>
+                <div class="back"></div>
+                <div class="front"></div>
+                <div class="box"></div>
+              </div>
+            </button>
+
+<!--            <button type="button" class="btn btn-primary" onclick="submitPayment()">Xác nhận thanh toán</button>-->
+          </div>
         </div>
       </div>
     </div>
@@ -153,6 +246,11 @@
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/isotope.js"></script>
     <script src="assets/js/accordions.js"></script>
+    <script src="assets/js/order-btn.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-qrcode/1.0/jquery.qrcode.min.js"></script>
+
 
 
     <script language = "text/Javascript">
@@ -207,6 +305,19 @@
       }
 
 
+      document.addEventListener('DOMContentLoaded', function () {
+        // Lấy giỏ hàng từ Local Storage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Tính tổng số lượng sản phẩm
+        const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
+
+        // Cập nhật số lượng lên giao diện
+        const cartCount = document.getElementById('cart-count');
+        cartCount.textContent = totalQuantity;
+      });
+
+
 
       function changeQuantity(id, delta) {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -247,6 +358,55 @@
       // Gọi hàm updateTotal sau khi hiển thị giỏ hàng
       displayCart();
       updateTotal();
+
+
+      function updateModalTotal() {
+        const total = document.getElementById('total-amount').textContent;
+        document.getElementById('modal-total-amount').innerHTML = total; // Cập nhật tổng tiền vào modal
+      }
+
+      function submitPayment() {
+        const name = document.getElementById('name').value;
+        const address = document.getElementById('address').value;
+        const phone = document.getElementById('phone').value;
+        const paymentMethod = document.getElementById('payment-method').value;
+
+        // Lấy tổng tiền từ modal
+        const totalAmountText = document.getElementById('modal-total-amount').textContent;
+        const totalAmount = totalAmountText.replace(/[^0-9]/g, ''); // Lấy giá trị số từ chuỗi
+
+        // Xử lý thanh toán ở đây (gửi thông tin đến server, v.v.)
+        if (paymentMethod === 'qr') {
+          // Hiển thị QR Code
+          const paymentData = `Họ tên: ${name}, Địa chỉ: ${address}, Số điện thoại: ${phone}`;
+          $('#qr-code-container').show(); // Hiện phần chứa QR Code
+          $('#qrcode').empty(); // Xóa QR Code cũ
+          $('#qrcode').qrcode(paymentData); // Tạo QR Code mới
+
+          // Cập nhật URL của mã QR
+          const qrImage = document.getElementById('qr-image');
+          qrImage.src = `https://qr.sepay.vn/img?acc=1015295551&bank=Vietcombank&amount=${totalAmount}&des=NOI_DUNG`;
+
+          alert(`Thông tin thanh toán:\nHọ tên: ${name}\nĐịa chỉ: ${address}\nSố điện thoại: ${phone}\nPhương thức: Thanh toán bằng QR Code. Vui lòng quét mã QR.`);
+        } else {
+          alert(`Thông tin thanh toán:\nHọ tên: ${name}\nĐịa chỉ: ${address}\nSố điện thoại: ${phone}\nPhương thức: ${paymentMethod}`);
+          $('#qr-code-container').hide(); // Ẩn phần chứa QR Code nếu không chọn phương thức QR
+        }
+
+        // Đóng modal sau khi thanh toán
+        $('#paymentModal').modal('hide');
+      }
+
+      function handlePaymentMethodChange() {
+        const paymentMethod = document.getElementById('payment-method').value;
+        const qrCodeContainer = document.getElementById('qr-code-container');
+
+        if (paymentMethod === 'qr') {
+          qrCodeContainer.style.display = 'block'; // Hiện phần chứa QR Code
+        } else {
+          qrCodeContainer.style.display = 'none'; // Ẩn phần chứa QR Code
+        }
+      }
     </script>
 
 

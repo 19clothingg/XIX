@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-
+  <link rel="icon" type="image/x-icon" href="/assets/title-icon.ico" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -21,6 +21,9 @@
   <link rel="stylesheet" href="/assets/css/owl.css">
   <link rel="stylesheet" href="/assets/css/btn.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
 
   <script src="/vendor/jquery/jquery.min.js"></script>
   <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -97,7 +100,22 @@
               <a class="nav-link" href="contact">LIÊN HỆ</a>
             </li>
             <li class="nav-item">
-              <a style="color: #F33F3FFF" class="nav-link" href="cart"><i style="font-size: 110% " class="fa fa-shopping-cart"></i> | GIỎ HÀNG</a>
+              <a style="color: #F33F3FFF" class="nav-link" href="cart">
+                <i style="font-size: 150%" class="fa fa-shopping-cart"></i>
+                <span id="cart-count"
+                      style="
+                    font-size: 11px;
+                    position: absolute;
+                    color: red;
+                    background: white;
+                    box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.2);
+                    border-radius: 50%;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    margin-left: -10px;
+                    top: 23px;  ">0
+                </span>
+              </a>
             </li>
 
           </ul>
@@ -157,6 +175,7 @@
                 </a>
 
                 <!-- Giá sản phẩm -->
+
                 <h6 th:text="${product.price}">Product Price</h6>
 
                 <!-- Mô tả sản phẩm -->
@@ -235,7 +254,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>About XIX Clothing</h2>
+              <h2>Về XIX Clothing</h2>
             </div>
           </div>
           <div class="col-md-6">
@@ -250,7 +269,7 @@
                 <li><a href="#">Cơ sở 2: Số 75 Chùa Bộc, Đống Đa, Hà Nội</a></li>
 
               </ul>
-              <a href="contact.html" class="filled-button">Read More</a>
+              <a href="contact.html" class="filled-button">Liên Hệ</a>
             </div>
           </div>
           <div class="col-md-6">
@@ -270,14 +289,14 @@
             <div class="inner-content">
               <div class="row">
                 <div class="col-md-8">
-                  <h4>Creative &amp; Unique <em>XIX</em> Products</h4>
+                  <h4>Sự sáng tạo &amp; độc đáo về sản phẩm tại <em>XIX</em></h4>
                   <p>Giới thiệu
 
                     XIX hướng đến sứ mệnh trở thành một local brand với các sản phẩm chất lượng tốt và giá thành "dễ
                     chịu" với mọi người.</p>
                 </div>
                 <div class="col-md-4">
-                  <a href="products.html" class="filled-button">Purchase Now</a>
+                  <a href="products.html" class="filled-button">Mua Ngay</a>
                 </div>
               </div>
             </div>
@@ -322,8 +341,10 @@
     <script src="/assets/js/isotope.js"></script>
     <script src="/assets/js/accordions.js"></script>
     <script src="/assets/js/btn.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-    <script language="text/Javascript">
+
+  <script language="text/Javascript">
       cleared[0] = cleared[1] = cleared[2] = 0;
       function clearField(t) {
         if (!cleared[t.id]) {
@@ -334,16 +355,30 @@
       }
     </script>
 
+    <script>
+      $(document).ready(function(){
+        console.log("Owl Carousel initializing..."); // Xác minh script đã chạy
+        $(".owl-banner").owlCarousel({
+          items: 1, // Hiển thị 1 mục mỗi lần
+          loop: true, // Vòng lặp
+          autoplay: true, // Tự động chuyển động
+          autoplayTimeout: 3000, // Thời gian giữa mỗi chuyển động (3000ms = 3s)
+          autoplayHoverPause: true, // Tạm dừng khi rê chuột lên
+          dots: true, // Hiển thị các dấu chấm điều hướng
+          nav: false // Không hiển thị nút điều hướng (nếu cần, đổi thành true)
+        });
+      });
+    </script>
+
 
 
     <script>
       function addToCart(button) {
-        const productId = button.getAttribute('data-id'); // Lấy ID sản phẩm từ thuộc tính data-id
-        const productName = button.closest('.down-content').querySelector('h4').innerText; // Lấy tên sản phẩm
-        const productPrice = button.closest('.down-content').querySelector('h6').innerText; // Lấy giá sản phẩm
-        const productImage = button.closest('.down-content').previousElementSibling.querySelector('img').getAttribute('src'); // Lấy đường dẫn hình ảnh
+        const productId = button.getAttribute('data-id');
+        const productName = button.closest('.down-content').querySelector('h4').innerText;
+        const productPrice = button.closest('.down-content').querySelector('h6').innerText;
+        const productImage = button.closest('.down-content').previousElementSibling.querySelector('img').getAttribute('src');
 
-        // Tạo đối tượng
         const product = {
           id: productId,
           name: productName,
@@ -352,31 +387,42 @@
           image: productImage
         };
 
-        // Lấy giỏ hàng từ Local Storage
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
         const existingProductIndex = cart.findIndex(item => item.id === productId);
         if (existingProductIndex !== -1) {
-          // Nếu sản phẩm đã có, tăng số lượng
           cart[existingProductIndex].quantity += 1;
         } else {
-          // Nếu sản phẩm chưa có, thêm sản phẩm vào giỏ hàng
           cart.push(product);
         }
 
-        // Lưu giỏ hàng vào Local Storage
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        // nội dung toast
-        const toastBody = document.querySelector('#toast .toast-body');
-        const toastImage = document.querySelector('#toast-image');
-        toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
+        //tổng số lượng sản phẩm
+        const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
 
-        // Thông báo
+        // Cập nhật số lượng trên giao diện
+        const cartCount = document.getElementById('cart-count');
+        cartCount.textContent = totalQuantity;
+
+        //thông báo
+        const toastBody = document.querySelector('#toast .toast-body');
+        toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
         $('#toast').css('display', 'block').toast({ delay: 3000 });
         $('#toast').toast('show');
       }
+
+
+      document.addEventListener('DOMContentLoaded', function () {
+        // Lấy giỏ hàng từ Local Storage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Tính tổng số lượng sản phẩm
+        const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
+
+        // Cập nhật số lượng lên giao diện
+        const cartCount = document.getElementById('cart-count');
+        cartCount.textContent = totalQuantity;
+      });
     </script>
 
   </body>
