@@ -60,7 +60,4 @@ public class AdminController {
         return "redirect:/admin/add-product"; // Trả về phản hồi cho AJAX
     }
 
-
-
-
 }

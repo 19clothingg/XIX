@@ -40,4 +40,8 @@ public class PageController {
         return "add-product";
     }
 
+    @GetMapping({"/admin-page", "/admin-page.html"})
+    public String showAdminDashboard() {
+        return "admin-page";
+    }
 }

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            height: 100vh; /* Chiều cao 100% của viewport */
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        /* Popup styles */
+        .popup {
+            display: none; /* Ẩn popup mặc định */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 60%;
+        }
+        .popup-content h2 {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .close {
+            cursor: pointer;
+            color: red;
+            float: right;
+        }
+        input[type="text"], textarea {
+            width: calc(100% - 20px); /* Chiều rộng ô input */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="number"] {
+            width: calc(100% - 20px); /* Chiều rộng ô input */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        #imagePreview {
+            margin-top: 10px;
+            max-width: 100%;
+            max-height: 200px;
+        }
+        .imagePreview {
+            margin-top: 10px;
+            max-width: 100px; /* Chiều rộng tối đa cho hình ảnh chi tiết */
+            max-height: 100px; /* Chiều cao tối đa cho hình ảnh chi tiết */
+            margin-right: 10px;
+            display: inline-block; /* Hiển thị hình ảnh theo hàng ngang */
+        }
+        button {
+            position: relative;
+            left: 35%;
+            width: 30%;
+            background-color: green;
+            border: none;
+            padding: 10px;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Quản lý sản phẩm</h2>
+    <a href="#add" id="addProductBtn">Thêm sản phẩm</a>
+    <a href="#delete">Xóa sản phẩm</a>
+    <a href="#edit">Sửa sản phẩm</a>
+</div>
+
+<div class="content">
+    <h1>Chào mừng đến với trang quản trị</h1>
+    <p>Chọn một mục từ thanh điều hướng bên trái để bắt đầu.</p>
+</div>
+
+<!-- Popup for adding product -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <span class="close" id="closePopup">&times;</span>
+        <h2>Thêm sản phẩm mới</h2>
+        <form>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="flex: 1; margin-right: 10px;">
+                    <label for="productName">Tên sản phẩm:</label><br>
+                    <input type="text" id="productName" name="productName" required>
+                </div>
+                <div style="flex: 1;">
+                    <label for="productPrice">Giá sản phẩm:</label><br>
+                    <input type="number" id="productPrice" name="productPrice" inputmode="decimal" pattern="[100-999,\.]*" required>
+                </div>
+            </div>
+
+            <label for="productDescription">Mô tả sản phẩm:</label><br>
+            <textarea id="productDescription" name="productDescription" rows="4" required></textarea><br>
+
+            <label for="productImage">Ảnh sản phẩm:</label><br>
+            <div style="display: flex; align-items: center; margin-bottom: 50px;">
+                <input type="file" id="productImage" name="productImage" accept="image/*" required style="margin-right: 10px;">
+                <input type="text" id="productImagePath" name="productImagePath" placeholder="Nhập đường dẫn ảnh" style="margin-right: 10px; flex: 1;">
+                <img id="imagePreview" src="#" alt="Hình ảnh sản phẩm" style="display:none; max-width: 100px; max-height: 100px;"/>
+            </div>
+
+            <label for="productImages">Hình ảnh chi tiết:</label><br>
+            <div style="display: flex; align-items: center; margin-bottom: 50px;">
+                <input type="file" id="productImages" name="productImages" accept="image/*" multiple required style="margin-right: 10px;">
+                <input type="text" id="productImagesPath" name="productImagesPath" placeholder="Nhập đường dẫn ảnh" style="margin-right: 10px; flex: 1;">
+                <div id="imagePreviews"></div> <!-- Thay đổi từ <img> thành <div> -->
+            </div>
+
+            <button type="submit"> Thêm sản phẩm </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Lấy các phần tử
+    const addProductBtn = document.getElementById('addProductBtn');
+    const popup = document.getElementById('popup');
+    const closePopup = document.getElementById('closePopup');
+    const productImage = document.getElementById('productImage');
+    const imagePreview = document.getElementById('imagePreview');
+    const productImages = document.getElementById('productImages');
+    const imagePreviews = document.getElementById('imagePreviews');
+
+    // Hiện popup khi nhấn nút "Thêm sản phẩm"
+    addProductBtn.onclick = function() {
+        popup.style.display = 'flex';
+    }
+
+    // Đóng popup khi nhấn vào nút đóng
+    closePopup.onclick = function() {
+        popup.style.display = 'none';
+    }
+
+    // Đóng popup khi nhấn ra ngoài popup
+    window.onclick = function(event) {
+        if (event.target === popup) {
+            popup.style.display = 'none';
+        }
+    }
+
+    // Hiển thị hình ảnh đã chọn từ file
+productImage.onchange = function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        imagePreview.style.display = 'none';
+    }
+}
+
+// Hiển thị hình ảnh từ đường dẫn
+document.getElementById('productImagePath').oninput = function() {
+    const path = this.value;
+    if (path) {
+        imagePreview.src = path;
+        imagePreview.style.display = 'block';
+    } else {
+        imagePreview.style.display = 'none';
+    }
+}
+
+// Hiển thị hình ảnh chi tiết đã chọn
+productImages.onchange = function(event) {
+    imagePreviews.innerHTML = ''; // Xóa các hình ảnh trước đó
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('imagePreview');
+            imagePreviews.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+// Hiển thị hình ảnh chi tiết từ đường dẫn
+document.getElementById('productImagesPath').oninput = function() {
+    const path = this.value;
+    if (path) {
+        const img = document.createElement('img');
+        img.src = path;
+        img.classList.add('imagePreview');
+        imagePreviews.appendChild(img);
+    }
+}
+</script>
+
+</body>
+</html>
