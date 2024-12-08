@@ -1,0 +1,101 @@
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            width: 200px;
+            background-color: #F33F3FFF;
+            color: white;
+            padding: 15px;
+            height: 100vh; /* Chiều cao 100% của viewport */
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        .navbar a:hover {
+            background-color: #fff;
+            color: #F33F3FFF;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #ddd;
+        }
+        /* Popup styles */
+        .popup {
+            display: none; /* Ẩn popup mặc định */
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 60%;
+        }
+        .popup-content h2 {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .close {
+            cursor: pointer;
+            color: red;
+            float: right;
+        }
+        input[type="text"], textarea {
+            width: calc(100% - 20px); /* Chiều rộng ô input */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="number"] {
+            width: calc(100% - 20px); /* Chiều rộng ô input */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        #imagePreview {
+            margin-top: 10px;
+            max-width: 100%;
+            max-height: 200px;
+        }
+        .imagePreview {
+            margin-top: 10px;
+            max-width: 100px; /* Chiều rộng tối đa cho hình ảnh chi tiết */
+            max-height: 100px; /* Chiều cao tối đa cho hình ảnh chi tiết */
+            margin-right: 10px;
+            display: inline-block; /* Hiển thị hình ảnh theo hàng ngang */
+        }
+        button {
+            position: relative;
+            left: 0%;
+            width: 100%;
+            background-color: #F33F3FFF;
+            border: none;
+            padding: 10px;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        table, th, td {
+          border:1px solid black;
+        }

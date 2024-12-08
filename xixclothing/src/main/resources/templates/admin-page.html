@@ -1,128 +1,56 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Dashboard</title>
-    <style>
-        body {
-            display: flex;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            width: 200px;
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            height: 100vh; /* Chiều cao 100% của viewport */
-        }
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 4px;
-        }
-        .navbar a:hover {
-            background-color: #575757;
-        }
-        .content {
-            flex: 1;
-            padding: 20px;
-        }
-        /* Popup styles */
-        .popup {
-            display: none; /* Ẩn popup mặc định */
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .popup-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            width: 60%;
-        }
-        .popup-content h2 {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .close {
-            cursor: pointer;
-            color: red;
-            float: right;
-        }
-        input[type="text"], textarea {
-            width: calc(100% - 20px); /* Chiều rộng ô input */
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="number"] {
-            width: calc(100% - 20px); /* Chiều rộng ô input */
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
-        #imagePreview {
-            margin-top: 10px;
-            max-width: 100%;
-            max-height: 200px;
-        }
-        .imagePreview {
-            margin-top: 10px;
-            max-width: 100px; /* Chiều rộng tối đa cho hình ảnh chi tiết */
-            max-height: 100px; /* Chiều cao tối đa cho hình ảnh chi tiết */
-            margin-right: 10px;
-            display: inline-block; /* Hiển thị hình ảnh theo hàng ngang */
-        }
-        button {
-            position: relative;
-            left: 35%;
-            width: 30%;
-            background-color: green;
-            border: none;
-            padding: 10px;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="./assets/css/admin-page.css">
 </head>
 <body>
 
 <div class="navbar">
-    <h2>Quản lý sản phẩm</h2>
+    <h2>Admin Page</h2>
     <a href="#add" id="addProductBtn">Thêm sản phẩm</a>
-    <a href="#delete">Xóa sản phẩm</a>
-    <a href="#edit">Sửa sản phẩm</a>
+<!--    <a href="#delete">Xóa sản phẩm</a>-->
+<!--    <a href="#edit">Sửa sản phẩm</a>-->
 </div>
 
 <div class="content">
-    <h1>Chào mừng đến với trang quản trị</h1>
-    <p>Chọn một mục từ thanh điều hướng bên trái để bắt đầu.</p>
+    <h1>Danh sách sản phẩm</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Mô tả</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="product : ${products}">
+            <tr>
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.description}"></td>
+                <td>
+                    <button style="background-color: #0585ed;" onclick="openEditPopup(${product.id})">Sửa</button>
+                    <button onclick="confirmDelete(${product.id})">Xóa</button>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
 </div>
 
-<!-- Popup for adding product -->
+<!-- Popup thêm sp -->
 <div class="popup" id="popup">
     <div class="popup-content">
         <span class="close" id="closePopup">&times;</span>
         <h2>Thêm sản phẩm mới</h2>
-        <form>
+        <form th:action="@{/admin-page/add-product}" method="post" enctype="multipart/form-data">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div style="flex: 1; margin-right: 10px;">
                     <label for="productName">Tên sản phẩm:</label><br>
@@ -139,22 +67,54 @@
 
             <label for="productImage">Ảnh sản phẩm:</label><br>
             <div style="display: flex; align-items: center; margin-bottom: 50px;">
-                <input type="file" id="productImage" name="productImage" accept="image/*" required style="margin-right: 10px;">
+                <input type="file" id="productImage" name="image" accept="image/*"  style="margin-right: 10px;">
                 <input type="text" id="productImagePath" name="productImagePath" placeholder="Nhập đường dẫn ảnh" style="margin-right: 10px; flex: 1;">
                 <img id="imagePreview" src="#" alt="Hình ảnh sản phẩm" style="display:none; max-width: 100px; max-height: 100px;"/>
             </div>
 
-            <label for="productImages">Hình ảnh chi tiết:</label><br>
-            <div style="display: flex; align-items: center; margin-bottom: 50px;">
-                <input type="file" id="productImages" name="productImages" accept="image/*" multiple required style="margin-right: 10px;">
-                <input type="text" id="productImagesPath" name="productImagesPath" placeholder="Nhập đường dẫn ảnh" style="margin-right: 10px; flex: 1;">
-                <div id="imagePreviews"></div> <!-- Thay đổi từ <img> thành <div> -->
-            </div>
+<!--            <label for="productImages">Hình ảnh chi tiết:</label><br>-->
+<!--            <div style="display: flex; align-items: center; margin-bottom: 50px;">-->
+<!--                <input type="file" id="productImages" name="productImages" accept="image/*" multiple required style="margin-right: 10px;">-->
+<!--                <input type="text" id="productImagesPath" name="productImagesPath" placeholder="Nhập đường dẫn ảnh" style="margin-right: 10px; flex: 1;">-->
+<!--                <div id="imagePreviews"></div> &lt;!&ndash; Thay đổi từ <img> thành <div> &ndash;&gt;-->
+<!--            </div>-->
 
             <button type="submit"> Thêm sản phẩm </button>
         </form>
+
+
+        <!-- Form thêm sản phẩm -->
+        <form class="add-product-form" action="#" th:action="@{/admin-page/add-product}" th:object="${product}" method="post">
+            <h1 style="width: 100%; text-align: center;">Thêm sản phẩm mới</h1>
+
+            <div class="form-field">
+                <label for="name">Tên sản phẩm:</label>
+                <input type="text" id="name" th:field="*{name}"/>
+            </div>
+
+            <div class="form-field">
+                <label for="price">Giá:</label>
+                <input type="number" id="price" th:field="*{price}" inputmode="decimal" pattern="[100-999,\.]*"/>
+            </div>
+
+            <div class="form-field">
+                <label for="description">Mô tả:</label>
+                <textarea id="description" th:field="*{description}"></textarea>
+            </div>
+
+            <div class="form-field">
+
+
+                <label for="imageUrl">Đường dẫn ảnh:</label>
+                <input type="text" id="imageUrl" th:field="*{imageUrl}"/>
+            </div>
+
+            <button type="submit">Thêm sản phẩm</button>
+        </form>
     </div>
 </div>
+
+
 
 <script>
     // Lấy các phần tử
@@ -235,6 +195,26 @@ document.getElementById('productImagesPath').oninput = function() {
         img.classList.add('imagePreview');
         imagePreviews.appendChild(img);
     }
+}
+
+
+
+
+    // Hiện popup khi nhấn nút "Xóa sản phẩm"
+document.getElementById('deleteProductBtn').onclick = function() {
+    document.getElementById('deletePopup').style.display = 'flex';
+}
+
+// Đóng popup khi nhấn vào nút đóng
+document.getElementById('closeDeletePopup').onclick = function() {
+    document.getElementById('deletePopup').style.display = 'none';
+}
+
+// Xử lý xác nhận xóa sản phẩm
+document.getElementById('confirmDeleteBtn').onclick = function() {
+    // Thực hiện xóa sản phẩm ở đây
+    alert('Sản phẩm đã được xóa!');
+    document.getElementById('deletePopup').style.display = 'none';
 }
 </script>
 

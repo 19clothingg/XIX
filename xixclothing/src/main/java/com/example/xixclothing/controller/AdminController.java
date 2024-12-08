@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -20,6 +23,9 @@ public class AdminController {
     @GetMapping("/add-product")
     public String showAddProductForm(Model model) {
         model.addAttribute("product", new Product());
+        // Lấy danh sách sản phẩm và sắp xếp theo ID giảm dần
+        List<Product> products = productService.getAllProducts();
+        products.sort(Comparator.comparing(Product::getId).reversed());
         model.addAttribute("products", productService.getAllProducts()); // Lấy danh sách sản phẩm
         return "add-product";
     }
