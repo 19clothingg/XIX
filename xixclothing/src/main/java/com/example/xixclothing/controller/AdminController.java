@@ -5,6 +5,7 @@ import com.example.xixclothing.entity.Product;
 import com.example.xixclothing.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,7 @@ public class AdminController {
         model.addAttribute("product", new Product());
         // Lấy danh sách sản phẩm và sắp xếp theo ID giảm dần
         List<Product> products = productService.getAllProducts();
-        products.sort(Comparator.comparing(Product::getId).reversed());
-        model.addAttribute("products", productService.getAllProducts()); // Lấy danh sách sản phẩm
+        model.addAttribute("products", products); // Lấy danh sách sản phẩm
         return "add-product";
     }
 
@@ -45,25 +45,19 @@ public class AdminController {
     }
 
     // Chỉnh sửa sản phẩm
-    @PostMapping("/update-product")
+    @PostMapping("/update-product/{id}")
     @ResponseBody
-    public String updateProduct(@RequestBody Product updatedProduct) {
-        // Tìm sản phẩm cũ từ database
-        Product existingProduct = productService.getProductById(updatedProduct.getId());
-        if (existingProduct != null) {
-            // Cập nhật thông tin nếu dữ liệu không rỗng
-            if (updatedProduct.getName() != null) {
-                existingProduct.setName(updatedProduct.getName());
-            }
-            if (updatedProduct.getPrice() != null) {
-                existingProduct.setPrice(updatedProduct.getPrice());
-            }
-            if (updatedProduct.getDescription() != null) {
-                existingProduct.setDescription(updatedProduct.getDescription());
-            }
-            productService.saveProduct(existingProduct); // Lưu sản phẩm đã cập nhật
+    public ResponseEntity<?> updateProduct(@PathVariable("id") String id, @RequestBody Product product) {
+        try {
+            Long productId = Long.parseLong(id); // Chuyển đổi từ String sang Long
+            Product updatedProduct = productService.updateProduct(productId, product);
+            return updatedProduct != null
+                    ? ResponseEntity.ok(updatedProduct)
+                    : ResponseEntity.notFound().build();
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("ID không hợp lệ");
         }
-        return "redirect:/admin/add-product"; // Trả về phản hồi cho AJAX
     }
+
 
 }

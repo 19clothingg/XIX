@@ -16,7 +16,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            padding: 20px;
+            padding: 0px;
             margin: 0;
         }
 
@@ -69,8 +69,7 @@
         }
 
         .add-product-form button[type="submit"] {
-            width: 100%;
-            background-color: #4CAF50;
+            background-color: #F33F3FFF;
             color: white;
             padding: 12px;
             border: none;
@@ -83,7 +82,7 @@
         }
 
         .add-product-form button[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #e97a7a;
         }
         table {
         width: 100%;
@@ -107,13 +106,25 @@
         tr:nth-child(even) {
           background-color: #dddddd;
         }
+        .nav-link{
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .image-preview {
+            display: none;
+            margin-top: 10px;
+            max-width: 150px;
+            height: auto;
+            float: right;
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
 <div class="d-flex">
     <!-- Navbar bên trái -->
-    <nav class="navbar navbar-light bg-light flex-column" style="width: 250px; height: 100vh;justify-content: initial;">
-        <a class="navbar-brand" href="#">Quản lý Sản phẩm</a>
+    <nav class="navbar navbar-light flex-column" style="width: 250px;justify-content: initial; background-color: #F33F3FFF;">
+        <a  style="color: #fff; font-size: 30px; font-weight: bold; margin-top: 10px; font-family: Lucida Sans Unicode; margin-bottom: 30px;" class="navbar-brand" href="#">ADMIN PAGE</a>
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link active" href="#" id="addProductLink">Thêm sản phẩm</a>
@@ -146,10 +157,14 @@
                 <label for="description">Mô tả:</label>
                 <textarea id="description" th:field="*{description}"></textarea>
             </div>
+
             <div class="form-field">
                 <label for="imageUrl">Đường dẫn ảnh:</label>
-                <input type="text" id="imageUrl" th:field="*{imageUrl}"/>
+                <input type="text" id="imageUrl" th:field="*{imageUrl}" />
+                <img id="imagePreview" src="" alt="Preview" class="image-preview" style="display: none;" />
             </div>
+
+
             <button type="submit">Thêm sản phẩm</button>
         </form>
 
@@ -169,7 +184,7 @@
             <tbody>
             <tr th:each="product : ${products}">
                 <td>
-                    <input style="width: 35px;" type="text" th:value="${product.id}" readonly />
+                    <input style="width: 35px;" type="text" th:value="${product.id}" readonly th:attr="data-id=${product.id}"/>
                 </td>
                 <td>
                     <img th:src="${product.imageUrl}" alt="${product.name}" style="width: 100px; height: auto;"/>
@@ -184,13 +199,14 @@
                     <input style="width: 100%;" type="text" th:value="${product.description}" data-field="description" class="editable"/>
                 </td>
                 <td class="button-group">
-                    <button type="button" class="save-btn" data-id="${product.id}">Lưu</button>
+                    <button type="button" class="save-btn" th:attr="data-id=${product.id}">Lưu</button>
                     <a th:href="@{/admin/delete-product/{id}(id=${product.id})}"
                        class="delete-btn"
                        onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">Xóa
                     </a>
                 </td>
             </tr>
+
             </tbody>
         </table>
     </div>
@@ -199,38 +215,8 @@
 
 
 <script>
-    // Xử lý lưu thay đổi
-    document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('save-btn')) {
-            const productId = event.target.getAttribute('data-id');
-            const form = event.target.closest('.product-form');
-            const updatedProduct = {
-                id: parseInt(productId, 10),
-                name: form.querySelector('[data-field="name"]').value.trim(),
-                price: parseFloat(form.querySelector('[data-field="price"]').value.trim()),
-                description: form.querySelector('[data-field="description"]').value.trim()
-            };
 
-            // Gửi dữ liệu qua API bằng fetch (AJAX)
-            fetch('/admin/add-product', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedProduct)
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Cập nhật thành công!');
-                    } else {
-                        alert('Cập nhật thất bại!');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    });
-
-    // Xử lý sự kiện click cho dòng "Thêm sản phẩm"
+    // click Thêm sản phẩm
         document.getElementById('addProductLink').addEventListener('click', function(event) {
             event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
             const form = document.getElementById('addProductForm');
@@ -241,6 +227,67 @@
                 form.style.display = 'none';
             }
         });
+
+
+    // click lưu sản phẩm
+        document.querySelectorAll('.save-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id'); // Lấy ID từ data-id
+                console.log('Product ID:', productId);
+
+                const row = this.closest('tr');
+                const name = row.querySelector('input[data-field="name"]').value;
+                const price = parseFloat(row.querySelector('input[data-field="price"]').value);
+                const description = row.querySelector('input[data-field="description"]').value;
+
+                if (isNaN(price)) {
+                    alert('Giá sản phẩm không hợp lệ.');
+                    return;
+                }
+
+                const productData = {
+                    name: name,
+                    price: price,
+                    description: description
+                };
+
+                // Gửi yêu cầu cập nhật sản phẩm
+                fetch(`/admin/update-product/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Cập nhật sản phẩm thành công!');
+                        location.reload(); // Làm mới trang
+                    } else {
+                        alert('Có lỗi xảy ra khi cập nhật sản phẩm.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi cập nhật sản phẩm.');
+                });
+            });
+        });
+
+
+        document.getElementById('imageUrl').addEventListener('input', function() {
+            const imageUrl = this.value;
+            const imagePreview = document.getElementById('imagePreview');
+
+            if (imageUrl) {
+                imagePreview.src = imageUrl;
+                imagePreview.style.display = 'block'; // Hiển thị hình ảnh
+            } else {
+                imagePreview.style.display = 'none'; // Ẩn hình ảnh nếu không có URL
+            }
+        });
+
+
 </script>
 
 </body>
