@@ -20,36 +20,31 @@ public class AdminController {
     @Autowired
     private ProductService productService;
 
-    // Hiển thị form thêm sản phẩm + danh sách sản phẩm
     @GetMapping("/add-product")
     public String showAddProductForm(Model model) {
         model.addAttribute("product", new Product());
-        // Lấy danh sách sản phẩm và sắp xếp theo ID giảm dần
         List<Product> products = productService.getAllProducts();
-        model.addAttribute("products", products); // Lấy danh sách sản phẩm
+        model.addAttribute("products", products);
         return "add-product";
     }
 
-    // Thêm sản phẩm mới
     @PostMapping("/add-product")
     public String addProduct(@ModelAttribute Product product) {
         productService.saveProduct(product);
         return "redirect:/admin/add-product";
     }
 
-    // Xóa sản phẩm
     @GetMapping("/delete-product/{id}")
     public String deleteProduct(@PathVariable Long id) {
-        productService.deleteProductById(id); // Xóa sản phẩm dựa trên ID
-        return "redirect:/admin/add-product"; // Trả về phản hồi cho AJAX
+        productService.deleteProductById(id);
+        return "redirect:/admin/add-product";
     }
 
-    // Chỉnh sửa sản phẩm
     @PostMapping("/update-product/{id}")
     @ResponseBody
     public ResponseEntity<?> updateProduct(@PathVariable("id") String id, @RequestBody Product product) {
         try {
-            Long productId = Long.parseLong(id); // Chuyển đổi từ String sang Long
+            Long productId = Long.parseLong(id);
             Product updatedProduct = productService.updateProduct(productId, product);
             return updatedProduct != null
                     ? ResponseEntity.ok(updatedProduct)

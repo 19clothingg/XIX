@@ -22,7 +22,7 @@ public class PageController {
 
     @GetMapping({"/", "/home", "/index", "/index.html"})
     public String showHomePage(Model model) {
-        List<Product> products = productRepository.findTop3ByOrderByCreatedDateDesc(); // Lấy 3 sản phẩm mới nhất
+        List<Product> products = productRepository.findTop3ByOrderByCreatedDateDesc(); // lấy 3 sản phẩm mới nhất
         model.addAttribute("products", products);
         return "index";
     }

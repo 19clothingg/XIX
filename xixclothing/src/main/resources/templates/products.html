@@ -182,37 +182,25 @@
         </div>
       </div>
       <!--&#45;&#45;&#45;&#45;&#45;&#45;-->
-      <div class="col-md-3 " th:each="product : ${products}">
+      <div class="col-md-3" th:each="product : ${products}">
         <div style="box-shadow: 1px 1px 14px 1px #888888; height: 444px" class="product-item">
-
           <!-- Hiển thị ảnh sản phẩm từ product.imageUrl -->
           <div>
-            <a href="#"
-               data-id="${product.id}"
-               data-name="${product.name}"
-               data-price="${product.price}"
-               data-description="${product.description}"
-               data-image="${product.imageUrl}"
-               onclick="showProductDetails(this)">
+            <a th:href="@{/product-details/{id}(id=${product.id})}">
               <img class="img-url" th:src="${product.imageUrl}" alt="Product Image">
             </a>
-
           </div>
 
           <div class="down-content">
             <!-- Tên sản phẩm -->
-            <a href="#" onclick="showProductDetails('${product.id}', '${product.name}', '${product.price}', '${product.description}', '${product.imageUrl}')">
+            <a th:href="@{/product-detail/{id}(id=${product.id})}">
               <h4 style="color: #000" class="one-line-paragraph" th:text="${product.name}">Product Name</h4>
             </a>
 
             <!-- Giá sản phẩm -->
             <h6 style="color: #f33f3f; position: initial; padding-bottom: 10px;" th:text="${product.price}"> Product Price</h6>
 
-
-            <!-- Mô tả sản phẩm -->
-            <!--<p th:text="${product.description}">Product Description</p>-->
-
-            <!--Nút thêm vào giỏ hàng-->
+            <!-- Nút thêm vào giỏ hàng -->
             <div style="text-align: center;">
               <button style="margin: auto" class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
                 <span style="font-size: 15px" class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>
@@ -296,97 +284,7 @@
 
 
 
-<!-- Modal HTML -->
-<div id="productDetailModal" class="custom-modal">
-  <div class="custom-modal-content">
-    <span class="close-modal">&times;</span>
-    <div class="modal-body">
-      <div class="modal-left">
-        <img id="modalProductImage" src="" alt="Product Image" class="img-fluid">
-      </div>
-      <div class="modal-right">
-        <h4 id="modalProductName"></h4>
-        <h5 id="modalProductPrice" class="text-danger"></h5>
-        <p id="modalProductDescription"></p>
-        <button class="btn-primary" onclick="addToCartFromModal()">Thêm Vào Giỏ Hàng</button>
-      </div>
-    </div>
-  </div>
-</div>
-<style>
-  /* Modal container */
-  .custom-modal {
-    display: none; /* Ẩn modal mặc định */
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Hiệu ứng mờ nền */
-  }
 
-  /* Nội dung modal */
-  .custom-modal-content {
-    position: relative;
-    margin: 10% auto;
-    padding: 20px;
-    background: #fff;
-    width: 60%;
-    max-width: 800px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-  }
-
-  /* Nút đóng */
-  .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  .close-modal:hover {
-    color: #000;
-  }
-
-  /* Bố cục nội dung modal */
-  .modal-body {
-    display: flex;
-    gap: 20px;
-  }
-
-  .modal-left img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-
-  .modal-right h4 {
-    margin-bottom: 15px;
-  }
-
-  .modal-right h5 {
-    color: red;
-    margin-bottom: 15px;
-  }
-
-  .modal-right button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .modal-right button:hover {
-    background-color: #0056b3;
-  }
-</style>
 
 
 
@@ -419,42 +317,42 @@
 
 <script>
   function addToCart(button) {
-    const productId = button.getAttribute('data-id');
-    const productName = button.closest('.down-content').querySelector('h4').innerText;
-    const productPrice = button.closest('.down-content').querySelector('h6').innerText;
-    const productImage = button.closest('.down-content').previousElementSibling.querySelector('img').getAttribute('src');
+  const productId = button.getAttribute('data-id');
+  const productName = button.closest('.down-content').querySelector('h4').innerText;
+  const productPrice = button.closest('.down-content').querySelector('h6').innerText;
+  const productImage = button.closest('.down-content').previousElementSibling.querySelector('img').getAttribute('src');
 
-    const product = {
-      id: productId,
-      name: productName,
-      price: productPrice,
-      quantity: 1,
-      image: productImage
-    };
+  const product = {
+    id: productId,
+    name: productName,
+    price: productPrice,
+    quantity: 1,
+    image: productImage
+  };
 
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingProductIndex = cart.findIndex(item => item.id === productId);
-    if (existingProductIndex !== -1) {
-      cart[existingProductIndex].quantity += 1;
-    } else {
-      cart.push(product);
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-
-    // Tính toán lại tổng số lượng sản phẩm
-    const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-
-    // Cập nhật số lượng trên giao diện
-    const cartCount = document.getElementById('cart-count');
-    cartCount.textContent = totalQuantity;
-
-    // Hiển thị thông báo
-    const toastBody = document.querySelector('#toast .toast-body');
-    toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
-    $('#toast').toast({ delay: 3000 });
-    $('#toast').toast('show');
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const existingProductIndex = cart.findIndex (item => item.id === productId);
+  if (existingProductIndex !== -1) {
+    cart[existingProductIndex].quantity += 1;
+  } else {
+    cart.push(product);
   }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Tính toán lại tổng số lượng sản phẩm
+  const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
+
+  // Cập nhật số lượng trên giao diện
+  const cartCount = document.getElementById('cart-count');
+  cartCount.textContent = totalQuantity;
+
+  // Hiển thị thông báo
+  const toastBody = document.querySelector('#toast .toast-body');
+  toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
+  $('#toast').toast({ delay: 3000 });
+  $('#toast').toast('show');
+}
 
 
 
@@ -472,37 +370,8 @@
 
 
 
-  // Mở modal
-function showProductDetails(id, name, price, description, imageUrl) {
-  // Đảm bảo imageUrl là chuỗi hợp lệ và chứa đường dẫn ảnh
-  console.log("Image URL:", imageUrl);
 
-  // Gán dữ liệu vào modal
-  const modalImage = document.getElementById('modalProductImage');
-  modalImage.src = imageUrl; // Gán đường dẫn ảnh
-  modalImage.alt = name; // Đặt thuộc tính alt
 
-  // Cập nhật các thông tin khác
-  document.getElementById('modalProductName').textContent = name;
-  document.getElementById('modalProductPrice').textContent = price + ' VND';
-  document.getElementById('modalProductDescription').textContent = description;
-
-  // Hiển thị modal
-  const modal = document.getElementById('productDetailModal');
-  modal.style.display = 'block';
-
-  // Thêm sự kiện đóng modal
-  document.querySelector('.close-modal').onclick = function () {
-    modal.style.display = 'none';
-  };
-
-  // Đóng modal khi nhấn bên ngoài
-  window.onclick = function (event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  };
-}
 
 
 // Hàm thêm vào giỏ hàng

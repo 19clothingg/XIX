@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>XIX Clothing</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--
+
+    19Clothingg
+
+    -->
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-sixteen.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+    <link rel="stylesheet" href="/assets/css/btn.css">
+    <link rel="stylesheet" href="/assets/css/product-details.css">
+
+</head>
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<!-- Header -->
+<header class="">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/index.html"><h2>XIX <em>Clothing</em></h2></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">TRANG CHỦ
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products.html">SẢN PHẨM</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact.html">LIÊN HỆ</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a style="color: #F33F3FFF" class="nav-link" href="/cart">
+                            <i style="font-size: 150%" class="fa fa-shopping-cart"></i>
+                            <span id="cart-count"
+                                  style="
+                    font-size: 11px;
+                    position: absolute;
+                    color: red;
+                    background: white;
+                    box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.2);
+                    border-radius: 50%;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    margin-left: -10px;
+                    top: 23px;">0
+              </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Page Content -->
+<div style="padding-top: 120px;" class="container">
+    <div class="row">
+        <!-- Phần hình ảnh sản phẩm -->
+        <div class="col-md-6">
+            <div class="product-image">
+                <img th:if="${product != null}" th:src="${product.imageUrl}" alt="Ảnh sản phẩm">
+            </div>
+        </div>
+        <!-- Phần thông tin sản phẩm -->
+        <div class="col-md-6">
+            <div class="product-info">
+                <h1 th:if="${product != null}" th:text="${product.name}">Tên sản phẩm</h1>
+                <div class="rating">
+                    <span>Đánh giá:</span>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
+                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                <div class="d-flex">
+                    <div class="quantity">
+                        <label for="quantity">Số lượng:</label>
+                        <input style="max-width: 50px; margin-top: 10px; margin-bottom: 10px;" type="number" id="quantity" name="quantity" min="1" value="1">
+                    </div>
+                </div>
+                <p th:if="${product != null}">
+                    <strong>Giá:</strong>
+                    <span th:text="${product.price}">0</span> VND
+                </p>
+                <!-- Nút thêm vào giỏ hàng -->
+                <div style="text-align: center; width: 70%; margin-top: 10px;">
+                    <button style="margin: auto" class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
+                        <span style="font-size: 15px" class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>
+                        <span class="added"> <i class="fa-solid fa-circle-check"></i> &nbsp; ĐÃ THÊM </span>
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <i class="fas fa-box"></i>
+                    </button>
+                </div>
+                <a href="/products">&#8629; Quay lại trang sản phẩm</a>
+            </div>
+        </div>
+    </div>
+    <!-- Phần mô tả sản phẩm -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="product-description">
+                <h2>Mô tả sản phẩm</h2>
+                <p th:text="${product.description}">Mô tả sản phẩm</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- Additional Scripts -->
+<script src="/assets/js/custom.js"></script>
+<script src="/assets/js/owl.js"></script>
+<script src="/assets/js/slick.js"></script>
+<script src="/assets/js/isotope.js"></script>
+<script src="/assets/js/accordions.js"></script>
+
+
+<script language = "text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t){                   //declaring the array outside of the
+    if(! cleared[t.id]){                      // function makes it static and global
+        cleared[t.id] = 1;  // you could use true and false, but that's more typing
+        t.value='';         // with more chance of typos
+        t.style.color='#fff';
+        }
+    }
+</script>
+<script>
+    function addToCart(button) {
+const productId = button.getAttribute('data-id');
+const productName = button.closest('.down-content').querySelector('h4').innerText;
+const productPrice = button.closest('.down-content').querySelector('h6').innerText;
+const productImage = button.closest('.down-content').previousElementSibling.querySelector('img').getAttribute('src');
+
+const product = {
+  id: productId,
+  name: productName,
+  price: productPrice,
+  quantity: 1,
+  image: productImage
+};
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const existingProductIndex = cart.findIndex (item => item.id === productId);
+if (existingProductIndex !== -1) {
+  cart[existingProductIndex].quantity += 1;
+} else {
+  cart.push(product);
+}
+
+localStorage.setItem('cart', JSON.stringify(cart));
+
+// Tính toán lại tổng số lượng sản phẩm
+const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
+
+// Cập nhật số lượng trên giao diện
+const cartCount = document.getElementById('cart-count');
+cartCount.textContent = totalQuantity;
+
+// Hiển thị thông báo
+const toastBody = document.querySelector('#toast .toast-body');
+toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
+$('#toast').toast({ delay: 3000 });
+$('#toast').toast('show');
+}
+</script>
+
+
+</body>
+
+</html>

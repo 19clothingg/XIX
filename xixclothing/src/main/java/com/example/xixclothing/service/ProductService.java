@@ -18,11 +18,11 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-
-    // Lấy tất cả sản phẩm và sắp xếp theo ID giảm dần (sản phẩm mới nhất lên đầu)
+    // lấy tất cả sản phẩm và sắp xếp theo id giảm dần
     public List<Product> getAllProducts() {
         return productRepository.findAll(Sort.by(Sort.Order.desc("id")));
     }
+
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
@@ -46,6 +46,6 @@ public class ProductService {
             // Cập nhật các trường khác nếu cần
             return productRepository.save(updatedProduct); // Lưu sản phẩm đã cập nhật
         }
-        return null; // Trả về null nếu không tìm thấy sản phẩm
+        return null;
     }
 }
