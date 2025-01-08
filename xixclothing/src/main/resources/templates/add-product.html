@@ -196,7 +196,7 @@
                     <input type="number" th:value="${product.price}" data-field="price" class="editable"/>
                 </td>
                 <td>
-                    <input style="width: 100%;" type="text" th:value="${product.description}" data-field="description" class="editable"/>
+                    <textarea style="width: 100%;" th:text="${product.description}" data-field="description" class="editable"></textarea>
                 </td>
                 <td class="button-group">
                     <button type="button" class="save-btn" th:attr="data-id=${product.id}">Lưu</button>
@@ -231,48 +231,48 @@
 
     // click lưu sản phẩm
         document.querySelectorAll('.save-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-id'); // Lấy ID từ data-id
-                console.log('Product ID:', productId);
+    button.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id'); // Lấy ID từ data-id
+        console.log('Product ID:', productId);
 
-                const row = this.closest('tr');
-                const name = row.querySelector('input[data-field="name"]').value;
-                const price = parseFloat(row.querySelector('input[data-field="price"]').value);
-                const description = row.querySelector('input[data-field="description"]').value;
+        const row = this.closest('tr');
+        const name = row.querySelector('input[data-field="name"]').value;
+        const price = parseFloat(row.querySelector('input[data-field="price"]').value);
+        const description = row.querySelector('textarea[data-field="description"]').value; // Lấy giá trị từ textarea
 
-                if (isNaN(price)) {
-                    alert('Giá sản phẩm không hợp lệ.');
-                    return;
-                }
+        if (isNaN(price)) {
+            alert('Giá sản phẩm không hợp lệ.');
+            return;
+        }
 
-                const productData = {
-                    name: name,
-                    price: price,
-                    description: description
-                };
+        const productData = {
+            name: name,
+            price: price,
+            description: description
+        };
 
-                // Gửi yêu cầu cập nhật sản phẩm
-                fetch(`/admin/update-product/${productId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(productData)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Cập nhật sản phẩm thành công!');
-                        location.reload(); // Làm mới trang
-                    } else {
-                        alert('Có lỗi xảy ra khi cập nhật sản phẩm.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Có lỗi xảy ra khi cập nhật sản phẩm.');
-                });
-            });
+        // Gửi yêu cầu cập nhật sản phẩm
+        fetch(`/admin/update-product/${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(productData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Cập nhật sản phẩm thành công!');
+                location.reload(); // Làm mới trang
+            } else {
+                alert('Có lỗi xảy ra khi cập nhật sản phẩm.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra khi cập nhật sản phẩm.');
         });
+    });
+});
 
 
         document.getElementById('imageUrl').addEventListener('input', function() {

@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/assets/css/owl.css">
     <link rel="stylesheet" href="/assets/css/btn.css">
     <link rel="stylesheet" href="/assets/css/product-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
@@ -124,7 +125,7 @@
                 </p>
                 <!-- Nút thêm vào giỏ hàng -->
                 <div style="text-align: center; width: 70%; margin-top: 10px;">
-                    <button style="margin: auto" class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
+                    <button style="margin: auto;" class="add-to-cart-btn" th:data-id="${product.id}" onclick="addToCart(this)">
                         <span style="font-size: 15px" class="add-to-cart">THÊM VÀO GIỎ HÀNG</span>
                         <span class="added"> <i class="fa-solid fa-circle-check"></i> &nbsp; ĐÃ THÊM </span>
                         <i class="fa-solid fa-cart-shopping"></i>
@@ -135,11 +136,11 @@
             </div>
         </div>
     </div>
-    <!-- Phần mô tả sản phẩm -->
+
     <div class="row">
         <div class="col-md-12">
             <div class="product-description">
-                <h2>Mô tả sản phẩm</h2>
+                <h2 >Mô tả sản phẩm</h2>
                 <p th:text="${product.description}">Mô tả sản phẩm</p>
             </div>
         </div>
@@ -165,6 +166,7 @@
 <script src="/assets/js/slick.js"></script>
 <script src="/assets/js/isotope.js"></script>
 <script src="/assets/js/accordions.js"></script>
+<script src="/assets/js/btn.js"></script>
 
 
 <script language = "text/Javascript">
@@ -179,42 +181,50 @@
 </script>
 <script>
     function addToCart(button) {
-const productId = button.getAttribute('data-id');
-const productName = button.closest('.down-content').querySelector('h4').innerText;
-const productPrice = button.closest('.down-content').querySelector('h6').innerText;
-const productImage = button.closest('.down-content').previousElementSibling.querySelector('img').getAttribute('src');
+  const productId = button.getAttribute('data-id');
+  const productName = button.closest('.product-info').querySelector('h1').innerText;
+  const productPrice = button.closest('.product-info').querySelector('p strong + span').innerText.trim();
+  const productImage = button.closest('.row').querySelector('.product-image img').getAttribute('src');
 
-const product = {
-  id: productId,
-  name: productName,
-  price: productPrice,
-  quantity: 1,
-  image: productImage
-};
+        const product = {
+          id: productId,
+          name: productName,
+          price: productPrice,
+          quantity: 1,
+          image: productImage
+        };
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const existingProductIndex = cart.findIndex (item => item.id === productId);
-if (existingProductIndex !== -1) {
-  cart[existingProductIndex].quantity += 1;
-} else {
-  cart.push(product);
-}
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingProductIndex = cart.findIndex(item => item.id === productId);
+        if (existingProductIndex !== -1) {
+          cart[existingProductIndex].quantity += 1;
+        } else {
+          cart.push(product);
+        }
 
-localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
 
-// Tính toán lại tổng số lượng sản phẩm
-const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
+        //tổng số lượng sản phẩm
+        const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
 
-// Cập nhật số lượng trên giao diện
-const cartCount = document.getElementById('cart-count');
-cartCount.textContent = totalQuantity;
+        // Cập nhật số lượng trên giao diện
+        const cartCount = document.getElementById('cart-count');
+        cartCount.textContent = totalQuantity;
 
-// Hiển thị thông báo
-const toastBody = document.querySelector('#toast .toast-body');
-toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
-$('#toast').toast({ delay: 3000 });
-$('#toast').toast('show');
-}
+      }
+
+
+      document.addEventListener('DOMContentLoaded', function () {
+        // Lấy giỏ hàng từ Local Storage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Tính tổng số lượng sản phẩm
+        const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
+
+        // Cập nhật số lượng lên giao diện
+        const cartCount = document.getElementById('cart-count');
+        cartCount.textContent = totalQuantity;
+      });
 </script>
 
 

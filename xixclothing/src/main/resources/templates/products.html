@@ -380,7 +380,7 @@ function addToCartFromModal() {
   const price = document.getElementById('modalProductPrice').textContent;
   const image = document.getElementById('modalProductImage').src;
 
-  // Thêm sản phẩm vào giỏ hàng (như code trước)
+  // Thêm sản phẩm vào giỏ hàng
   const product = { id: Date.now(), name, price, quantity: 1, image };
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart.push(product);
