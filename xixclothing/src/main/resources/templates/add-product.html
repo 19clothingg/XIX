@@ -130,9 +130,6 @@
                 <a class="nav-link active" href="#" id="addProductLink">Thêm sản phẩm</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Danh sách sản phẩm</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="#">Thống kê</a>
             </li>
             <li class="nav-item">
@@ -269,7 +266,6 @@
     });
 });
 
-
         document.getElementById('imageUrl').addEventListener('input', function() {
             const imageUrl = this.value;
             const imagePreview = document.getElementById('imagePreview');
@@ -281,6 +277,17 @@
                 imagePreview.style.display = 'none';
             }
         });
+
+    document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 's') {
+        event.preventDefault();
+
+        const saveButton = document.querySelector('.save-btn');
+        if (saveButton) {
+            saveButton.click();
+        }
+    }
+});
 
 
 </script>
