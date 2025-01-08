@@ -216,11 +216,9 @@
 
 <script>
 
-    // click Thêm sản phẩm
         document.getElementById('addProductLink').addEventListener('click', function(event) {
-            event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+            event.preventDefault();
             const form = document.getElementById('addProductForm');
-            // Chuyển đổi giữa hiển thị và ẩn form
             if (form.style.display === 'none' || form.style.display === '') {
                 form.style.display = 'block';
             } else {
@@ -228,17 +226,15 @@
             }
         });
 
-
-    // click lưu sản phẩm
         document.querySelectorAll('.save-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const productId = this.getAttribute('data-id'); // Lấy ID từ data-id
+            button.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id');
         console.log('Product ID:', productId);
 
         const row = this.closest('tr');
         const name = row.querySelector('input[data-field="name"]').value;
         const price = parseFloat(row.querySelector('input[data-field="price"]').value);
-        const description = row.querySelector('textarea[data-field="description"]').value; // Lấy giá trị từ textarea
+        const description = row.querySelector('textarea[data-field="description"]').value;
 
         if (isNaN(price)) {
             alert('Giá sản phẩm không hợp lệ.');
@@ -251,7 +247,6 @@
             description: description
         };
 
-        // Gửi yêu cầu cập nhật sản phẩm
         fetch(`/admin/update-product/${productId}`, {
             method: 'POST',
             headers: {
@@ -281,9 +276,9 @@
 
             if (imageUrl) {
                 imagePreview.src = imageUrl;
-                imagePreview.style.display = 'block'; // Hiển thị hình ảnh
+                imagePreview.style.display = 'block';
             } else {
-                imagePreview.style.display = 'none'; // Ẩn hình ảnh nếu không có URL
+                imagePreview.style.display = 'none';
             }
         });
 

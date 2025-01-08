@@ -182,8 +182,7 @@
                 </select>
 
                 <div class="form-group" id="qr-code-container" style="display: none;">
-<!--                  <label>Mã QR thanh toán</label>-->
-                  <div id="qrcode"></div> <!-- Nơi hiển thị QR Code -->
+                  <div id="qrcode"></div>
                   <img style="width: 100%" id="qr-image"
                        src='https://qr.sepay.vn/img?acc=1015295551&bank=Vietcombank&amount=0&des=NOI_DUNG' />
                 </div>
@@ -201,9 +200,6 @@
               <span class="default">ĐẶT HÀNG</span>
                 <span style="font-size: 16px; font-family: serif;" class="success">
                   Thank you &#9829;
-<!--                  <svg viewbox="0 0 12 10">-->
-<!--                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>-->
-<!--                  </svg>-->
               </span>
               <div class="truck">
                 <div class="wheel"></div>
@@ -212,8 +208,6 @@
                 <div class="box"></div>
               </div>
             </button>
-
-<!--            <button type="button" class="btn btn-primary" onclick="submitPayment()">Xác nhận thanh toán</button>-->
           </div>
         </div>
       </div>
@@ -265,27 +259,26 @@
     </script>
 
     <script>
-      // Hiển thị giỏ hàng
       function displayCart() {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartItemsContainer = document.getElementById('cart-items');
-        cartItemsContainer.innerHTML = ''; // Xóa nội dung trước đó
+        cartItemsContainer.innerHTML = '';
 
-        let totalQuantity = 0; // Biến để lưu tổng số lượng sản phẩm
+        let totalQuantity = 0;
 
         if (cart.length === 0) {
           cartItemsContainer.innerHTML = '<div class="row main align-items-center"><div class="col"><h5>Giỏ hàng của bạn đang trống.</h5></div></div>';
-          document.querySelector('.text-muted').innerText = '0 sản phẩm'; // Cập nhật số lượng sản phẩm
+          document.querySelector('.text-muted').innerText = '0 sản phẩm';
           return;
         }
 
         cart.forEach(item => {
-          totalQuantity += item.quantity; // Cộng dồn số lượng sản phẩm
+          totalQuantity += item.quantity;
           const itemDiv = document.createElement('div');
           itemDiv.classList.add('row', 'main', 'align-items-center');
-          itemDiv.setAttribute ('data-id', item.id); // Thêm thuộc tính data-id
+          itemDiv.setAttribute ('data-id', item.id);
           itemDiv.innerHTML = `
-            <div class="col-2"><img class="img-fluid" src="${item.image}" alt="${item.name}"></div> <!-- Hiển thị hình ảnh -->
+            <div class="col-2"><img class="img-fluid" src="${item.image}" alt="${item.name}"></div>
             <div class="col">
                 <div class="row text-muted">${item.name}</div>
                 <div class="row">${item.description || ''}</div>
@@ -297,7 +290,7 @@
             </div>
             <div class="col">&#8363; ${item.price * item.quantity} <span class="close" onclick="removeFromCart('${item.id}')">&#10005;</span></div>
         `;
-          cartItemsContainer.appendChild(itemDiv); // Thêm sản phẩm vào container
+          cartItemsContainer.appendChild(itemDiv);
         });
 
         // Cập nhật số lượng sản phẩm trong giỏ
@@ -306,13 +299,11 @@
 
 
       document.addEventListener('DOMContentLoaded', function () {
-        // Lấy giỏ hàng từ Local Storage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Tính tổng số lượng sản phẩm
+        //tổng số lượng sản phẩm
         const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
 
-        // Cập nhật số lượng lên giao diện
         const cartCount = document.getElementById('cart-count');
         cartCount.textContent = totalQuantity;
       });
@@ -326,10 +317,10 @@
         if (itemIndex !== -1) {
           cart[itemIndex].quantity += delta;
           if (cart[itemIndex].quantity <= 0) {
-            cart.splice(itemIndex, 1); // Xóa sản phẩm nếu số lượng <= 0
+            cart.splice(itemIndex, 1);
           }
           localStorage.setItem('cart', JSON.stringify(cart));
-          displayCart(); // Cập nhật giỏ hàng
+          displayCart();
           updateTotal();
         }
       }
@@ -338,31 +329,27 @@
 
       function removeFromCart(id) {
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const itemIndex = cart.findIndex(item => item.id === id); // Tìm chỉ số sản phẩm trong giỏ hàng
+        const itemIndex = cart.findIndex(item => item.id === id);g
         if (itemIndex !== -1) {
           cart.splice(itemIndex, 1); // Xóa sản phẩm khỏi giỏ hàng
-          localStorage.setItem('cart', JSON.stringify(cart)); // Cập nhật giỏ hàng trong Local Storage
-          displayCart(); // Cập nhật giỏ hàng
-          updateTotal(); // Cập nhật tổng thanh toán
+          localStorage.setItem('cart', JSON.stringify(cart));
+          displayCart();
+          updateTotal();
         }
       }
-
-
-
       // Tổng thanh toán
       function updateTotal() {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        document.getElementById('total-amount').innerHTML = `&#8363; ${total.toFixed(2)}`; // Cập nhật tổng tiền
+        document.getElementById('total-amount').innerHTML = `&#8363; ${total.toFixed(2)}`;
       }
-      // Gọi hàm updateTotal sau khi hiển thị giỏ hàng
       displayCart();
       updateTotal();
 
 
       function updateModalTotal() {
         const total = document.getElementById('total-amount').textContent;
-        document.getElementById('modal-total-amount').innerHTML = total; // Cập nhật tổng tiền vào modal
+        document.getElementById('modal-total-amount').innerHTML = total;
       }
 
       function submitPayment() {
@@ -371,29 +358,23 @@
         const phone = document.getElementById('phone').value;
         const paymentMethod = document.getElementById('payment-method').value;
 
-        // Lấy tổng tiền từ modal
         const totalAmountText = document.getElementById('modal-total-amount').textContent;
-        const totalAmount = totalAmountText.replace(/[^0-9]/g, ''); // Lấy giá trị số từ chuỗi
+        const totalAmount = totalAmountText.replace(/[^0-9]/g, '');
 
-        // Xử lý thanh toán ở đây (gửi thông tin đến server, v.v.)
         if (paymentMethod === 'qr') {
-          // Hiển thị QR Code
           const paymentData = `Họ tên: ${name}, Địa chỉ: ${address}, Số điện thoại: ${phone}`;
-          $('#qr-code-container').show(); // Hiện phần chứa QR Code
-          $('#qrcode').empty(); // Xóa QR Code cũ
-          $('#qrcode').qrcode(paymentData); // Tạo QR Code mới
+          $('#qr-code-container').show();
+          $('#qrcode').empty();
+          $('#qrcode').qrcode(paymentData);
 
-          // Cập nhật URL của mã QR
           const qrImage = document.getElementById('qr-image');
           qrImage.src = `https://qr.sepay.vn/img?acc=1015295551&bank=Vietcombank&amount=${totalAmount}&des=NOI_DUNG`;
 
           alert(`Thông tin thanh toán:\nHọ tên: ${name}\nĐịa chỉ: ${address}\nSố điện thoại: ${phone}\nPhương thức: Thanh toán bằng QR Code. Vui lòng quét mã QR.`);
         } else {
           alert(`Thông tin thanh toán:\nHọ tên: ${name}\nĐịa chỉ: ${address}\nSố điện thoại: ${phone}\nPhương thức: ${paymentMethod}`);
-          $('#qr-code-container').hide(); // Ẩn phần chứa QR Code nếu không chọn phương thức QR
+          $('#qr-code-container').hide();
         }
-
-        // Đóng modal sau khi thanh toán
         $('#paymentModal').modal('hide');
       }
 
@@ -402,9 +383,9 @@
         const qrCodeContainer = document.getElementById('qr-code-container');
 
         if (paymentMethod === 'qr') {
-          qrCodeContainer.style.display = 'block'; // Hiện phần chứa QR Code
+          qrCodeContainer.style.display = 'block';
         } else {
-          qrCodeContainer.style.display = 'none'; // Ẩn phần chứa QR Code
+          qrCodeContainer.style.display = 'none';
         }
       }
     </script>

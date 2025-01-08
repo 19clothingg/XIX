@@ -166,7 +166,11 @@
           <div style="box-shadow: 1px 1px 14px 1px #888888;" class="product-item">
 
             <!-- Hiển thị ảnh sản phẩm từ product.imageUrl -->
-            <div ><a href="#"><img class="img-url" th:src="${product.imageUrl}" alt="Product Image"></a></div>
+            <div >
+              <a th:href="@{/product-details/{id}(id=${product.id})}">
+                <img class="img-url" th:src="${product.imageUrl}" alt="Product Image">
+              </a>
+            </div>
 
               <div class="down-content">
                 <!-- Tên sản phẩm -->
@@ -369,16 +373,17 @@
     </script>
 
     <script>
+      //banner
       $(document).ready(function(){
-        console.log("Owl Carousel initializing..."); // Xác minh script đã chạy
+        console.log("Owl Carousel initializing...");
         $(".owl-banner").owlCarousel({
-          items: 1, // Hiển thị 1 mục mỗi lần
-          loop: true, // Vòng lặp
-          autoplay: true, // Tự động chuyển động
-          autoplayTimeout: 3000, // Thời gian giữa mỗi chuyển động (3000ms = 3s)
-          autoplayHoverPause: true, // Tạm dừng khi rê chuột lên
-          dots: true, // Hiển thị các dấu chấm điều hướng
-          nav: false // Không hiển thị nút điều hướng (nếu cần, đổi thành true)
+          items: 1,
+          loop: true,
+          autoplay: true,
+          autoplayTimeout: 3000,
+          autoplayHoverPause: true,
+          dots: true,
+          nav: false
         });
       });
     </script>
@@ -409,11 +414,7 @@
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
-
-        //tổng số lượng sản phẩm
         const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-
-        // Cập nhật số lượng trên giao diện
         const cartCount = document.getElementById('cart-count');
         cartCount.textContent = totalQuantity;
 
@@ -424,15 +425,9 @@
         $('#toast').toast('show');
       }
 
-
       document.addEventListener('DOMContentLoaded', function () {
-        // Lấy giỏ hàng từ Local Storage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Tính tổng số lượng sản phẩm
         const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-
-        // Cập nhật số lượng lên giao diện
         const cartCount = document.getElementById('cart-count');
         cartCount.textContent = totalQuantity;
       });

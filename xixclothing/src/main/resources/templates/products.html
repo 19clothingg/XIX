@@ -184,7 +184,7 @@
       <!--&#45;&#45;&#45;&#45;&#45;&#45;-->
       <div class="col-md-3" th:each="product : ${products}">
         <div style="box-shadow: 1px 1px 14px 1px #888888; height: 444px" class="product-item">
-          <!-- Hiển thị ảnh sản phẩm từ product.imageUrl -->
+          <!-- ảnh sản phẩm-->
           <div>
             <a th:href="@{/product-details/{id}(id=${product.id})}">
               <img class="img-url" th:src="${product.imageUrl}" alt="Product Image">
@@ -339,42 +339,23 @@
   }
 
   localStorage.setItem('cart', JSON.stringify(cart));
-
-  // Tính toán lại tổng số lượng sản phẩm
   const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-
-  // Cập nhật số lượng trên giao diện
   const cartCount = document.getElementById('cart-count');
   cartCount.textContent = totalQuantity;
 
-  // Hiển thị thông báo
   const toastBody = document.querySelector('#toast .toast-body');
   toastBody.innerText = `${productName} đã được thêm vào giỏ hàng!`;
   $('#toast').toast({ delay: 3000 });
   $('#toast').toast('show');
 }
 
-
-
   document.addEventListener('DOMContentLoaded', function () {
-    // Lấy giỏ hàng từ Local Storage
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    // Tính tổng số lượng sản phẩm
     const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-
-    // Cập nhật số lượng lên giao diện
     const cartCount = document.getElementById('cart-count');
     cartCount.textContent = totalQuantity;
   });
 
-
-
-
-
-
-
-// Hàm thêm vào giỏ hàng
 function addToCartFromModal() {
   const name = document.getElementById('modalProductName').textContent;
   const price = document.getElementById('modalProductPrice').textContent;
@@ -386,10 +367,8 @@ function addToCartFromModal() {
   cart.push(product);
   localStorage.setItem('cart', JSON.stringify(cart));
 
-  // Ẩn modal
   document.getElementById('productDetailModal').style.display = 'none';
 
-  // Hiển thị thông báo
   alert(`${name} đã được thêm vào giỏ hàng!`);
 }
 

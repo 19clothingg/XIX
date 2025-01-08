@@ -92,13 +92,13 @@
 <!-- Page Content -->
 <div style="padding-top: 120px;" class="container">
     <div class="row">
-        <!-- Phần hình ảnh sản phẩm -->
+        <!--hình ảnh sản phẩm -->
         <div class="col-md-6">
             <div class="product-image">
                 <img th:if="${product != null}" th:src="${product.imageUrl}" alt="Ảnh sản phẩm">
             </div>
         </div>
-        <!-- Phần thông tin sản phẩm -->
+        <!--thông tin sản phẩm -->
         <div class="col-md-6">
             <div class="product-info">
                 <h1 th:if="${product != null}" th:text="${product.name}">Tên sản phẩm</h1>
@@ -181,10 +181,10 @@
 </script>
 <script>
     function addToCart(button) {
-  const productId = button.getAttribute('data-id');
-  const productName = button.closest('.product-info').querySelector('h1').innerText;
-  const productPrice = button.closest('.product-info').querySelector('p strong + span').innerText.trim();
-  const productImage = button.closest('.row').querySelector('.product-image img').getAttribute('src');
+      const productId = button.getAttribute('data-id');
+      const productName = button.closest('.product-info').querySelector('h1').innerText;
+      const productPrice = button.closest('.product-info').querySelector('p strong + span').innerText.trim();
+      const productImage = button.closest('.row').querySelector('.product-image img').getAttribute('src');
 
         const product = {
           id: productId,
@@ -201,13 +201,9 @@
         } else {
           cart.push(product);
         }
-
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        //tổng số lượng sản phẩm
         const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-
-        // Cập nhật số lượng trên giao diện
         const cartCount = document.getElementById('cart-count');
         cartCount.textContent = totalQuantity;
 
@@ -215,13 +211,8 @@
 
 
       document.addEventListener('DOMContentLoaded', function () {
-        // Lấy giỏ hàng từ Local Storage
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Tính tổng số lượng sản phẩm
         const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-
-        // Cập nhật số lượng lên giao diện
         const cartCount = document.getElementById('cart-count');
         cartCount.textContent = totalQuantity;
       });
